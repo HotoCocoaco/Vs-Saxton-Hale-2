@@ -47,8 +47,8 @@ methodmap CChristian < BaseBoss {
 		SetHudTextParams(-1.0, 0.77, 0.35, 255, 255, 255, 255);
 		float jmp = this.flCharge;
 		if( this.flRAGE >= 100.0 )
-			ShowSyncHudText(this.index, g_vsh2.m_hHUDs[PlayerHUD], "Jump: %i%% | Rage: FULL - Call Medic (default: E) to activate", this.bSuperCharge ? 1000 : RoundFloat(jmp) * 4);
-		else ShowSyncHudText(this.index, g_vsh2.m_hHUDs[PlayerHUD], "Jump: %i%% | Rage: %0.1f", this.bSuperCharge ? 1000 : RoundFloat(jmp) * 4, this.flRAGE);
+			ShowSyncHudText(this.index, g_vsh2.m_hHUDs[PlayerHUD], "超级跳：%i%% | 愤怒：充满 - 呼叫医生（默认：E）来激活", this.bSuperCharge ? 1000 : RoundFloat(jmp) * 4);
+		else ShowSyncHudText(this.index, g_vsh2.m_hHUDs[PlayerHUD], "超级跳：%i%% | 愤怒：%0.1f", this.bSuperCharge ? 1000 : RoundFloat(jmp) * 4, this.flRAGE);
 	}
 	public void SetModel() {
 		SetVariantString(CBSModel);
@@ -63,10 +63,10 @@ methodmap CChristian < BaseBoss {
 	}
 
 	public void Equip() {
-		this.SetName("The Christian Brutal Sniper");
+		this.SetName("残忍基督神弓");
 		this.RemoveAllItems();
 		char attribs[128];
-		Format(attribs, sizeof(attribs), "68; 2.0; 2; 3.1; 259; 1.0");
+		Format(attribs, sizeof(attribs), "2 ; 2.80; 252 ; 0.5; 259 ; 1.0; 1 ; 0.85; 149 ; 10.0");
 		int SaxtonWeapon = this.SpawnWeapon("tf_weapon_club", 171, 100, 5, attribs);
 		SetEntPropEnt(this.index, Prop_Send, "m_hActiveWeapon", SaxtonWeapon);
 	}
@@ -82,7 +82,7 @@ methodmap CChristian < BaseBoss {
 		this.PlayVoiceClip(GetRandomInt(0, 1) ? CBS1 : CBS3, VSH2_VOICE_RAGE);
 
 		TF2_RemoveWeaponSlot(this.index, TFWeaponSlot_Primary);
-		int bow = this.SpawnWeapon("tf_weapon_compound_bow", 1005, 100, 5, "2; 2.1; 6; 0.5; 37; 0.0; 280; 19; 551; 1");
+		int bow = this.SpawnWeapon("tf_weapon_compound_bow", 1005, 100, 5, "2 ; 2.1; 6 ; 0.5; 37 ; 0.0; 280 ; 19; 551 ; 1; 275 ; 1");
 		SetEntPropEnt(this.index, Prop_Send, "m_hActiveWeapon", bow); /// 266; 1.0 - penetration
 
 		int living = GetLivingPlayers(VSH2Team_Red);
@@ -112,7 +112,7 @@ methodmap CChristian < BaseBoss {
 				case 5: clubindex = 423;
 				case 6: clubindex = 474;
 			}
-			weapon = this.SpawnWeapon("tf_weapon_club", clubindex, 100, 5, "68; 2.0; 2; 3.1; 259; 1.0");
+			weapon = this.SpawnWeapon("tf_weapon_club", clubindex, 100, 5, "68; 2.0; 2; 2.8; 259; 1.0; 275 ; 1");
 			SetEntPropEnt(this.index, Prop_Send, "m_hActiveWeapon", weapon);
 		}
 
@@ -136,7 +136,7 @@ methodmap CChristian < BaseBoss {
 	public void Help() {
 		if( IsVoteInProgress() )
 			return;
-		char helpstr[] = "Christian Brutal Sniper:\nSuper Jump: crouch, look up and stand up.\nWeigh-down: in midair, look down and crouch\nRage (Huntsman Bow): taunt when Rage is full (9 arrows).\nVery close-by enemies are stunned.";
+		char helpstr[] = "残忍基督神弓：\n超级跳：按住右键充能，充能后向上看松开右键。\n重压：在空中，向下看并蹲下。\n愤怒（猎人短弓）：获得当前存活敌人数量的弓箭。眩晕靠近的敌人。";
 		Panel panel = new Panel();
 		panel.SetTitle(helpstr);
 		char ExitText[64];
@@ -188,5 +188,5 @@ public void AddCBSToDownloads()
 public void AddCBSToMenu(Menu& menu)
 {
 	char bossid[5]; IntToString(VSH2Boss_CBS, bossid, sizeof(bossid));
-	menu.AddItem(bossid, "Christian Brutal Sniper");
+	menu.AddItem(bossid, "残忍基督神弓");
 }

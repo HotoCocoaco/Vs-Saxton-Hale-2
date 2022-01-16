@@ -62,8 +62,8 @@ methodmap CVagineer < BaseBoss {
 		SetHudTextParams(-1.0, 0.77, 0.35, 255, 255, 255, 255);
 		float jmp = this.flCharge;
 		if( this.flRAGE >= 100.0 )
-			ShowSyncHudText(this.index, g_vsh2.m_hHUDs[PlayerHUD], "Jump: %i%% | Rage: FULL - Call Medic (default: E) to activate", this.bSuperCharge ? 1000 : RoundFloat(jmp) * 4);
-		else ShowSyncHudText(this.index, g_vsh2.m_hHUDs[PlayerHUD], "Jump: %i%% | Rage: %0.1f", this.bSuperCharge ? 1000 : RoundFloat(jmp) * 4, this.flRAGE);
+			ShowSyncHudText(this.index, g_vsh2.m_hHUDs[PlayerHUD], "超级跳：%i%% | 愤怒：充满 - 呼叫医生（默认：E）来激活", this.bSuperCharge ? 1000 : RoundFloat(jmp) * 4);
+		else ShowSyncHudText(this.index, g_vsh2.m_hHUDs[PlayerHUD], "超级跳：%i%% | 愤怒：%0.1f", this.bSuperCharge ? 1000 : RoundFloat(jmp) * 4, this.flRAGE);
 
 		if( TF2_IsPlayerInCondition(this.index, TFCond_Ubercharged) )
 			SetEntProp(this.index, Prop_Data, "m_takedamage", 0);
@@ -88,7 +88,7 @@ methodmap CVagineer < BaseBoss {
 		this.RemoveAllItems();
 		char attribs[128];
 
-		Format(attribs, sizeof(attribs), "68; 2.0; 2; 3.1; 259; 1.0; 436; 1.0");
+		Format(attribs, sizeof(attribs), "68; 2.0; 2; 3.1; 259; 1.0; 436; 1.0; 275 ; 1");
 		int SaxtonWeapon = this.SpawnWeapon("tf_weapon_wrench", 169, 100, 5, attribs);
 		SetEntPropEnt(this.index, Prop_Send, "m_hActiveWeapon", SaxtonWeapon);
 	}

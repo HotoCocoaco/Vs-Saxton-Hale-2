@@ -90,7 +90,7 @@ methodmap CHHHJr < BaseBoss {
 
 					EmitSoundToClient(this.index, "misc/halloween/spell_teleport.wav");
 					EmitSoundToClient(target, "misc/halloween/spell_teleport.wav");
-					PrintCenterText(target, "You've been teleported!");
+					PrintCenterText(target, "你已被传送！");
 
 					this.flCharge = g_vsh2.m_hCvars.HHHTeleCooldown.FloatValue;
 				}
@@ -119,8 +119,8 @@ methodmap CHHHJr < BaseBoss {
 		float jmp = this.flCharge;
 		int max_climbs = g_vsh2.m_hCvars.HHHMaxClimbs.IntValue;
 		if( this.flRAGE >= 100.0 )
-			ShowSyncHudText(this.index, g_vsh2.m_hHUDs[PlayerHUD], "Teleport: %i%% | Climbs: %i / %i | Rage: FULL - Call Medic (default: E) to activate", this.bSuperCharge ? 1000 : RoundFloat(jmp) * 2, this.iClimbs, max_climbs);
-		else ShowSyncHudText(this.index, g_vsh2.m_hHUDs[PlayerHUD], "Teleport: %i%% | Climbs: %i / %i | Rage: %0.1f", this.bSuperCharge ? 1000 : RoundFloat(jmp) * 2, this.iClimbs, max_climbs, this.flRAGE);
+			ShowSyncHudText(this.index, g_vsh2.m_hHUDs[PlayerHUD], "传送：%i%% | 爬墙：%i / %i | 愤怒：充满- 呼叫医生（默认：E）来激活", this.bSuperCharge ? 1000 : RoundFloat(jmp) * 2, this.iClimbs, max_climbs);
+		else ShowSyncHudText(this.index, g_vsh2.m_hHUDs[PlayerHUD], "传送：%i%% | 爬墙：%i / %i | 愤怒：%0.1f", this.bSuperCharge ? 1000 : RoundFloat(jmp) * 2, this.iClimbs, max_climbs, this.flRAGE);
 	}
 	public void SetModel() {
 		SetVariantString(HHHModel);
@@ -136,11 +136,11 @@ methodmap CHHHJr < BaseBoss {
 	}
 
 	public void Equip() {
-		this.SetName("The Horseless Headless Horsemann Jr.");
+		this.SetName("脱缰的无头骑士Jr.");
 		this.RemoveAllItems();
 		char attribs[128];
 
-		Format(attribs, sizeof(attribs), "68; 2.0; 2; 3.1; 259; 1.0; 252; 0.6; 551; 1");
+		Format(attribs, sizeof(attribs), "68 ; 2.0; 2 ; 2.8; 259 ; 1.0; 252 ; 0.6; 551 ; 1; 275 ; 1");
 		int SaxtonWeapon = this.SpawnWeapon("tf_weapon_sword", 266, 100, 5, attribs);
 		SetEntPropEnt(this.index, Prop_Send, "m_hActiveWeapon", SaxtonWeapon);
 		this.flCharge = g_vsh2.m_hCvars.HHHTeleCooldown.FloatValue * 0.9091;
@@ -189,7 +189,7 @@ methodmap CHHHJr < BaseBoss {
 	{
 		if( IsVoteInProgress() )
 			return;
-		char helpstr[] = "Horseless Headless Horsemann Jr.:\nTeleporter: crouch, look up and stand up.\nWeigh-down: in midair, look down and crouch\nRage (stun): taunt when Rage is full to stun nearby enemies.";
+		char helpstr[] = "脱缰的无头骑士Jr：\n传送：按住右键充能，充能完全后向上看松开右键。\n爬墙：近战攻击墙面。\n重压：在空中，向下看并蹲下。\n愤怒（幽灵）：无敌，吸收附附近敌人生命。";
 		Panel panel = new Panel();
 		panel.SetTitle(helpstr);
 		char ExitText[64];
@@ -233,7 +233,7 @@ public void AddHHHToDownloads()
 public void AddHHHToMenu(Menu& menu)
 {
 	char bossid[5]; IntToString(VSH2Boss_HHHjr, bossid, sizeof(bossid));
-	menu.AddItem(bossid, "Horseless Headless Horsemann Jr.");
+	menu.AddItem(bossid, "脱缰的无头骑士Jr");
 }
 
 public void HHHTeleCollisionReset(const int userid)

@@ -144,8 +144,8 @@ methodmap CBunny < BaseBoss {
 		SetHudTextParams(-1.0, 0.77, 0.35, 255, 255, 255, 255);
 		float jmp = this.flCharge;
 		if( this.flRAGE >= 100.0 )
-			ShowSyncHudText(this.index, g_vsh2.m_hHUDs[PlayerHUD], "Jump: %i%% | Rage: FULL - Call Medic (default: E) to activate", this.bSuperCharge ? 1000 : RoundFloat(jmp) * 4);
-		else ShowSyncHudText(this.index, g_vsh2.m_hHUDs[PlayerHUD], "Jump: %i%% | Rage: %0.1f", this.bSuperCharge ? 1000 : RoundFloat(jmp) * 4, this.flRAGE);
+			ShowSyncHudText(this.index, g_vsh2.m_hHUDs[PlayerHUD], "超级跳：%i%% | 愤怒：充满 - 呼叫医生（默认：E）来激活", this.bSuperCharge ? 1000 : RoundFloat(jmp) * 4);
+		else ShowSyncHudText(this.index, g_vsh2.m_hHUDs[PlayerHUD], "超级跳：%i%% | 愤怒：%0.1f", this.bSuperCharge ? 1000 : RoundFloat(jmp) * 4, this.flRAGE);
 	}
 	public void SetModel() {
 		SetVariantString(BunnyModel);
@@ -162,10 +162,10 @@ methodmap CBunny < BaseBoss {
 	}
 
 	public void Equip() {
-		this.SetName("The Easter Bunny");
+		this.SetName("复活节兔子");
 		this.RemoveAllItems();
 		char attribs[128];
-		Format(attribs, sizeof(attribs), "68 ; 2.0; 2 ; 3.0; 259 ; 1.0; 326 ; 1.3; 252 ; 0.6");
+		Format(attribs, sizeof(attribs), "68 ; 2.0; 2 ; 3.0; 259 ; 1.0; 326 ; 1.3; 252 ; 0.6; 275 ; 1");
 		int SaxtonWeapon = this.SpawnWeapon("tf_weapon_bottle", 609, 100, 5, attribs);
 		SetEntPropEnt(this.index, Prop_Send, "m_hActiveWeapon", SaxtonWeapon);
 	}
@@ -220,7 +220,7 @@ methodmap CBunny < BaseBoss {
 	public void Help() {
 		if( IsVoteInProgress() )
 			return;
-		char helpstr[] = "The Easter Bunny:\nI think he wants to give out candy? Maybe?\nSuper Jump: crouch, look up and stand up.\nWeigh-down: in midair, look down and crouch\nRage (Happy Easter, Fools): taunt when Rage Meter is full.\nNearby enemies are stunned.";
+		char helpstr[] = "复活节兔子：\n我想他想送糖果？大概？\n超级跳：按住右键充能，充能后向上看松开右键。\n重压：在空中，向下看并蹲下。\n愤怒（复活节快乐，铸币）：眩晕敌人。分发糖果。";
 		Panel panel = new Panel();
 		panel.SetTitle(helpstr);
 		char ExitText[64];
@@ -270,7 +270,7 @@ public void AddBunnyToDownloads()
 public void AddBunnyToMenu(Menu& menu)
 {
 	char bossid[5]; IntToString(VSH2Boss_Bunny, bossid, sizeof(bossid));
-	menu.AddItem(bossid, "Easter Bunny Demoman");
+	menu.AddItem(bossid, "复活节兔兔呆毛人");
 }
 
 stock void SpawnManyAmmoPacks(const int client, const char[] model, int skin=0, int num=14, float offsz = 30.0)

@@ -137,8 +137,8 @@ methodmap CHale < BaseBoss {
 		SetHudTextParams(-1.0, 0.77, 0.35, 255, 255, 255, 255);
 		float jmp = this.flCharge;
 		if( this.flRAGE >= 100.0 )
-			ShowSyncHudText(this.index, g_vsh2.m_hHUDs[PlayerHUD], "Jump: %i%% | Rage: FULL - Call Medic (default: E) to activate", this.bSuperCharge ? 1000 : RoundFloat(jmp) * 4);
-		else ShowSyncHudText(this.index, g_vsh2.m_hHUDs[PlayerHUD], "Jump: %i%% | Rage: %0.1f", this.bSuperCharge ? 1000 : RoundFloat(jmp) * 4, this.flRAGE);
+			ShowSyncHudText(this.index, g_vsh2.m_hHUDs[PlayerHUD], "超级跳：%i%% | 愤怒：充满 - 呼叫医生（默认：E）来激活", this.bSuperCharge ? 1000 : RoundFloat(jmp) * 4);
+		else ShowSyncHudText(this.index, g_vsh2.m_hHUDs[PlayerHUD], "超级跳：%i%% | 愤怒：%0.1f", this.bSuperCharge ? 1000 : RoundFloat(jmp) * 4, this.flRAGE);
 	}
 	public void SetModel() {
 		SetVariantString(HaleModel);
@@ -154,10 +154,10 @@ methodmap CHale < BaseBoss {
 	}
 
 	public void Equip() {
-		this.SetName("Saxton Hale");
+		this.SetName("萨克斯顿 霍尔");
 		this.RemoveAllItems();
 		char attribs[128];
-		Format(attribs, sizeof(attribs), "68; 2.0; 2; 3.1; 259; 1.0; 252; 0.6; 214; %d", GetRandomInt(999, 9999));
+		Format(attribs, sizeof(attribs), "68 ; 2.0; 2 ; 3.1; 259 ; 1.0; 252 ; 0.6; 275 ; 1; 214; %d", GetRandomInt(999, 9999));
 		int SaxtonWeapon = this.SpawnWeapon("tf_weapon_shovel", 5, 100, 5, attribs);
 		SetEntPropEnt(this.index, Prop_Send, "m_hActiveWeapon", SaxtonWeapon);
 	}
@@ -237,7 +237,7 @@ methodmap CHale < BaseBoss {
 	public void Help() {
 		if( IsVoteInProgress() )
 			return;
-		char helpstr[] = "Saxton Hale:\nSuper Jump: crouch, look up and stand up.\nWeigh-down: in midair, look down and crouch\nRage (stun): taunt when the Rage is full to stun nearby enemies.";
+		char helpstr[] = "萨克斯顿 霍尔：\n超级跳：按住右键充能，充能后向上看松开右键。\n重压：在空中，向下看并蹲下。\n愤怒（眩晕）：眩晕周围的敌人。";
 		Panel panel = new Panel();
 		panel.SetTitle(helpstr);
 		char ExitText[64];
@@ -353,7 +353,7 @@ public void AddHaleToDownloads()
 public void AddHaleToMenu(Menu& menu)
 {
 	char bossid[5]; IntToString(VSH2Boss_Hale, bossid, sizeof(bossid));
-	menu.AddItem(bossid, "Saxton Hale");
+	menu.AddItem(bossid, "萨克斯顿 霍尔");
 }
 
 public void EnableSG(const int iid)
