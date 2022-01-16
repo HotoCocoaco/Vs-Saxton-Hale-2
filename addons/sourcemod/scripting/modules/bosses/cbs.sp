@@ -1,5 +1,5 @@
 /// defines
-#define CBSModel		"models/player/saxton_hale/cbs_v4.mdl"
+#define CBSModel		"models/player/saxton_hale/cbs_v6.mdl"
 // #define CBSModelPrefix		"models/player/saxton_hale/cbs_v4"
 
 /// Christian Brutal Sniper voicelines

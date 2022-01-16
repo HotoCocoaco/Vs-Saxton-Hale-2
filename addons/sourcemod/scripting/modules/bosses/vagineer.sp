@@ -5,7 +5,7 @@
 #define VagineerModelPrefix	"models/player/saxton_hale/vagineer_v134"
 */
 
-#define VagineerModel		"models/player/saxton_hale/vagineer_v150.mdl"
+#define VagineerModel		"models/player/saxton_hale/vagineer_v151.mdl"
 // #define VagineerModelPrefix	"models/player/saxton_hale/vagineer_v150"
 
 
