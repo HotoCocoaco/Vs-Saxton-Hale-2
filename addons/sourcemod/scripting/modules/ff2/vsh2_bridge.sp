@@ -288,7 +288,7 @@ void OnBossThinkFF2(const VSH2Player vsh2player)
 				}
 			} else {
 				SetHudTextParams(-1.0, 0.71, 0.15, 255, 0, 0, 255);
-				ShowSyncHudText(client, ff2.m_hud[HUD_Weighdown], "Weighdown is not ready\nYou must wait %.1f sec", curCd);
+				ShowSyncHudText(client, ff2.m_hud[HUD_Weighdown], "重压未就绪\n你必须等 %.1f 秒", curCd);
 			}
 		}
 	}
@@ -333,7 +333,7 @@ void OnBossThinkFF2(const VSH2Player vsh2player)
 			if( hud_section.Get("text", buffer, sizeof(buffer)) ) {
 				FF2_ReplaceEscapeSeq(buffer, sizeof(buffer));
 			}
-			else buffer = "Super-Jump: %i%%";
+			else buffer = "超级跳：%i%%";
 			Format(buffer, sizeof(buffer), buffer, player.GetPropInt("bSuperCharge") ? 1000 : RoundFloat(flCharge) * 4);
 		}
 
@@ -351,8 +351,8 @@ void OnBossThinkFF2(const VSH2Player vsh2player)
 			client,
 			ff2.m_hud[HUD_Jump],
 				flRage >= 100.0 ?
-				"%s\nCall for medic to activate your \"RAGE\" ability" :
-				"%s\nRage is %.1f percent ready",
+				"%s\n呼叫医生激活你的 \"愤怒\" 能力" :
+				"%s\n愤怒值 %.1f 百分比就绪",
 			buffer,
 			flRage
 		);
