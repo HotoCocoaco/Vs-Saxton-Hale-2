@@ -90,12 +90,12 @@ bool LiveSys_OnRoundEndInfo(const VSH2Player player, char message[MAXMESSAGE])
 		player.GetName(name);
 
 		FormatEx(
-			message, 
+			message,
 			sizeof(message),
-			"%s (%N) had %i (of %i) health left, %i (of %i) lives left.",
-			name, 
-			player.index, 
-			player.GetPropInt("iHealth"), 
+			"%s (%N) 有 %i (总量 %i) 生命值剩余, %i (总量 %i) 条生命剩余。",
+			name,
+			player.index,
+			player.GetPropInt("iHealth"),
 			player.GetPropInt("iMaxHealth"),
 			player.GetPropInt("iLives"),
 			player.GetPropInt("iMaxLives")
@@ -118,7 +118,7 @@ void LiveSys_DisplayForClient(int client)
 static void DisplayLivesNum(int client)
 {
 	float nest_y_pos = 2.0;
-	static char name[MAX_BOSS_NAME_SIZE]; 
+	static char name[MAX_BOSS_NAME_SIZE];
 
 	for( int i = 0; i < BossesWithLives; i++ ) {
 		FF2Player curBoss = LivesSys[i].boss;
@@ -133,9 +133,9 @@ static void DisplayLivesNum(int client)
 			nest_y_pos = LivesSys[i].pos.y;
 
 		SetHudTextParams(
-			LivesSys[i].pos.x, 
+			LivesSys[i].pos.x,
 			nest_y_pos,
-			0.15, 
+			0.15,
 			LivesSys[i].color.r,
 			LivesSys[i].color.g,
 			LivesSys[i].color.b,

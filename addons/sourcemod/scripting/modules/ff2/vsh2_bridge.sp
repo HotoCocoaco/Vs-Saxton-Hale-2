@@ -117,9 +117,9 @@ void OnBossMenuFF2(Menu& menu, const VSH2Player player)
 		if( ff2_cfgmgr.GetIdentity(boss_name, cur_identity) ) {
 			ConfigMap cfg = FF2Character(cur_identity.hCfg).InfoSection;
 			bool tmp;
-			if( 
+			if(
 				( !cfg.Get("name", boss_name, sizeof(boss_name)) ) ||
-				( cfg.GetBool("blocked", tmp, false) && tmp ) || 
+				( cfg.GetBool("blocked", tmp, false) && tmp ) ||
 				( cfg.GetBool("nofirst", tmp, false) && tmp && !num_rounds )
 			  )
 				continue;
@@ -302,7 +302,7 @@ void OnBossThinkFF2(const VSH2Player vsh2player)
 				}
 			} else {
 				SetHudTextParams(-1.0, 0.71, 0.15, 255, 0, 0, 255);
-				ShowSyncHudText(client, ff2.m_hud[HUD_Weighdown], "Weighdown is not ready\nYou must wait %.1f sec", curCd);
+				ShowSyncHudText(client, ff2.m_hud[HUD_Weighdown], "重压未就绪\n你必须等待 %.1f 秒", curCd);
 			}
 		}
 	}
@@ -347,7 +347,7 @@ void OnBossThinkFF2(const VSH2Player vsh2player)
 			if( hud_section.Get("text", buffer, sizeof(buffer)) ) {
 				FF2_ReplaceEscapeSeq(buffer, sizeof(buffer));
 			}
-			else buffer = "Super-Jump: %i%%\n";
+			else buffer = "超级跳：%i%%\n";
 			Format(buffer, sizeof(buffer), buffer, player.GetPropInt("bSuperCharge") ? 1000 : RoundFloat(flCharge) * 4);
 		}
 		else buffer[0] = 0;
@@ -365,9 +365,9 @@ void OnBossThinkFF2(const VSH2Player vsh2player)
 		ShowSyncHudText(
 			client,
 			ff2.m_hud[HUD_Jump],
-				flRage >= 100.0 ? 
-				"%sCall for medic to activate your \"RAGE\" ability" :
-				"%sRage is %.1f percent ready",
+				flRage >= 100.0 ?
+				"%s呼叫医生激活你的 \"愤怒\" 能力" :
+				"%s愤怒值 %.1f 百分比就绪",
 			buffer,
 			flRage
 		);
@@ -708,12 +708,12 @@ Action OnRoundEndInfoFF2(const VSH2Player player, bool bossBool, char message[MA
 			cur_boss.GetName(boss_name);
 
 			FormatEx(
-				message, 
+				message,
 				sizeof(message),
-				"%s (%N) had %i (of %i) health left.",
-				boss_name, 
-				cur_boss.index, 
-				cur_boss.GetPropInt("iHealth"), 
+				"%s (%N) 有 %i (总量 %i) 生命值剩余",
+				boss_name,
+				cur_boss.index,
+				cur_boss.GetPropInt("iHealth"),
 				cur_boss.GetPropInt("iMaxHealth")
 			);
 		}
@@ -722,7 +722,7 @@ Action OnRoundEndInfoFF2(const VSH2Player player, bool bossBool, char message[MA
 		for( int j=MaxClients; j; --j ) {
 			if( IsClientInGame(j) && !(GetClientButtons(j) & IN_SCORE) ) {
 				ShowHudText(j, -1, "%s", message);
-				CPrintToChat(j, "{olive}[VSH 2] End of Round{default} %s", message);
+				CPrintToChat(j, "{olive}[VSH 2] 回合结束{default} %s", message);
 			}
 		}
 
