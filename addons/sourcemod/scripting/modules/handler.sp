@@ -1681,7 +1681,7 @@ public void CheckAlivePlayers(const any nil)
 
 	int enable_alive = g_vsh2.m_hCvars.AliveToEnable.IntValue;
 	if( !g_vsh2.m_hCvars.PointType.BoolValue && living <= enable_alive && !g_vsh2.m_hGamemode.bPointReady ) {
-		PrintHintTextToAll("%i players are left; control point enabled!", living);
+		PrintHintTextToAll("只剩下 %i 玩家; 控制点已激活！", living);
 		if( living==enable_alive ) {
 			EmitSoundToAll("vo/announcer_am_capenabled02.mp3");
 		} else if( living < enable_alive ) {

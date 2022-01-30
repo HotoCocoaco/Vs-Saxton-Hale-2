@@ -146,7 +146,7 @@ static void DisplayLivesNum(int client)
 		ShowHudText(
 			client,
 			-1,
-			"%s: (%i / %i) lives left",
+			"%s: (%i / %i) 生命剩余",
 			name,
 			curLives,
 			curBoss.GetPropInt("iMaxLives")
