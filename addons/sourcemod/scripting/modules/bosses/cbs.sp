@@ -66,7 +66,7 @@ methodmap CChristian < BaseBoss {
 		this.SetName("残忍基督神弓");
 		this.RemoveAllItems();
 		char attribs[128];
-		Format(attribs, sizeof(attribs), "2 ; 2.80; 252 ; 0.5; 259 ; 1.0; 1 ; 0.85; 149 ; 10.0");
+		Format(attribs, sizeof(attribs), "2 ; 3.1; 252 ; 0.5; 259 ; 1.0; 1 ; 0.85; 149 ; 10.0");
 		int SaxtonWeapon = this.SpawnWeapon("tf_weapon_club", 171, 100, 5, attribs);
 		SetEntPropEnt(this.index, Prop_Send, "m_hActiveWeapon", SaxtonWeapon);
 	}
@@ -82,7 +82,7 @@ methodmap CChristian < BaseBoss {
 		this.PlayVoiceClip(GetRandomInt(0, 1) ? CBS1 : CBS3, VSH2_VOICE_RAGE);
 
 		TF2_RemoveWeaponSlot(this.index, TFWeaponSlot_Primary);
-		int bow = this.SpawnWeapon("tf_weapon_compound_bow", 1005, 100, 5, "2 ; 2.1; 6 ; 0.5; 37 ; 0.0; 280 ; 19; 551 ; 1; 275 ; 1");
+		int bow = this.SpawnWeapon("tf_weapon_compound_bow", 1005, 100, 5, "2 ; 5.1; 6 ; 0.5; 37 ; 0.0; 280 ; 19; 551 ; 1; 275 ; 1");
 		SetEntPropEnt(this.index, Prop_Send, "m_hActiveWeapon", bow); /// 266; 1.0 - penetration
 
 		int living = GetLivingPlayers(VSH2Team_Red);
