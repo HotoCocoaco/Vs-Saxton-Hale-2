@@ -157,7 +157,7 @@ methodmap CHale < BaseBoss {
 		this.SetName("萨克斯顿 霍尔");
 		this.RemoveAllItems();
 		char attribs[128];
-		Format(attribs, sizeof(attribs), "68 ; 2.0; 2 ; 3.3; 259 ; 1.0; 252 ; 0.6; 275 ; 1; 214; %d", GetRandomInt(999, 9999));
+		Format(attribs, sizeof(attribs), "68 ; 2.0; 2 ; 3.3; 259 ; 1.0; 535 ; 0.6; 275 ; 1; 214; %d", GetRandomInt(999, 9999));
 		int SaxtonWeapon = this.SpawnWeapon("tf_weapon_shovel", 5, 100, 5, attribs);
 		SetEntPropEnt(this.index, Prop_Send, "m_hActiveWeapon", SaxtonWeapon);
 	}

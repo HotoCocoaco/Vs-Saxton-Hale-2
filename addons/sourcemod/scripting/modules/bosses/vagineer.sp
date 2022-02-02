@@ -88,7 +88,7 @@ methodmap CVagineer < BaseBoss {
 		this.RemoveAllItems();
 		char attribs[128];
 
-		Format(attribs, sizeof(attribs), "68; 2.0; 2; 3.1; 259; 1.0; 436; 1.0; 275 ; 1");
+		Format(attribs, sizeof(attribs), "68; 2.0; 2; 3.1; 259; 1.0; 436; 1.0; 275 ; 1; 535 ; 0.6");
 		int SaxtonWeapon = this.SpawnWeapon("tf_weapon_wrench", 169, 100, 5, attribs);
 		SetEntPropEnt(this.index, Prop_Send, "m_hActiveWeapon", SaxtonWeapon);
 	}

@@ -66,7 +66,7 @@ methodmap CChristian < BaseBoss {
 		this.SetName("残忍基督神弓");
 		this.RemoveAllItems();
 		char attribs[128];
-		Format(attribs, sizeof(attribs), "2 ; 3.1; 252 ; 0.5; 259 ; 1.0; 1 ; 0.85; 149 ; 10.0");
+		Format(attribs, sizeof(attribs), "2 ; 3.1; 535 ; 0.5; 259 ; 1.0; 1 ; 0.85; 149 ; 10.0");
 		int SaxtonWeapon = this.SpawnWeapon("tf_weapon_club", 171, 100, 5, attribs);
 		SetEntPropEnt(this.index, Prop_Send, "m_hActiveWeapon", SaxtonWeapon);
 	}
