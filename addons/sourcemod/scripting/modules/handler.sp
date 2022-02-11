@@ -2054,6 +2054,10 @@ public void ManageFighterCrits(const BaseBoss fighter) {
 					if( tfclass==TFClass_Scout ) {
 						crit_flags = CRITFLAG_MINI;
 					}
+					///No crits for engineer.
+					if ( tfclass==TFClass_Engineer ) {
+						crit_flags &= ~CRITFLAG_FULL;
+					}
 				}
 
 				/// Jarate/Milk + Flying Guillotine
