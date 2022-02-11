@@ -24,7 +24,7 @@
 #pragma newdecls             required
 
 #define PLUGIN_VERSION       "2.12.0"
-#define PLUGIN_DESCRIPT      "VS Saxton Hale 2"
+#define PLUGIN_DESCRIPT      "怪兽打熊孩子"
 
 
 enum {
