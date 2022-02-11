@@ -140,7 +140,7 @@ methodmap CHHHJr < BaseBoss {
 		this.RemoveAllItems();
 		char attribs[128];
 
-		Format(attribs, sizeof(attribs), "68 ; 2.0; 2 ; 3.1; 259 ; 1.0; 525 ; 0.6; 551 ; 1; 275 ; 1");
+		Format(attribs, sizeof(attribs), "68 ; 2.0; 2 ; 3.1; 259 ; 1.0; 525 ; 0.4; 551 ; 1; 275 ; 1");
 		int SaxtonWeapon = this.SpawnWeapon("tf_weapon_sword", 266, 100, 5, attribs);
 		SetEntPropEnt(this.index, Prop_Send, "m_hActiveWeapon", SaxtonWeapon);
 		this.flCharge = g_vsh2.m_hCvars.HHHTeleCooldown.FloatValue * 0.9091;
