@@ -2207,7 +2207,7 @@ public void ManageFighterHUD(const BaseBoss fighter) {
 					Format(HUDText, sizeof(HUDText), "%s\nUbercharge: %i%%", HUDText, charge);
 
 					/// Fixes Ubercharges ending prematurely on Medics.
-					if( GetEntProp(medigun, Prop_Send, "m_bChargeRelease") && charge_level > 0.0 && GetActiveWep(i)==medigun ) {
+					if( GetEntProp(medigun, Prop_Send, "m_bChargeRelease") && charge_level > 0.0 && GetActiveWep(i)==medigun && GetEntProp(medigun, Prop_Send, "m_iItemDefinitionIndex") != 35 && GetEntProp(medigun, Prop_Send, "m_iItemDefinitionIndex") != 411 ) {
 						TF2_AddCondition(i, TFCond_Ubercharged, 1.0);
 					}
 				}
