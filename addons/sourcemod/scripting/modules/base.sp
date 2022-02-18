@@ -483,7 +483,7 @@ methodmap BaseFighter {
 		if( this.iTFClass > TFClass_Unknown ) {
 			SetEntProp(this.index, Prop_Send, "m_lifeState", 2);
 			ChangeClientTeam(this.index, team);
-			SetEntProp(this.index, Prop_Send, "m_lifeState", 0);
+			//SetEntProp(this.index, Prop_Send, "m_lifeState", 0);	//not need to set it because respawn player does that. unless...ehh
 			TF2_RespawnPlayer(this.index);
 		}
 	}
