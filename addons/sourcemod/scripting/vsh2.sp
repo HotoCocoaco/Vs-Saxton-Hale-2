@@ -1470,6 +1470,18 @@ public any Native_VSH2_getProperty(Handle plugin, int numParams)
 	any item;
 	if( !g_vsh2.m_hPlayerFields[player.index].GetValue(prop_name, item) ) {
 		LogError("VSH2 VSH2Player.GetPropAny :: missing prop '%s'", prop_name);
+		static bool report_once = true;
+		if( report_once ) {
+    	report_once = false;
+    	FrameIterator fi = new FrameIterator();
+    	char func_name[64], file_path[PLATFORM_MAX_PATH];
+    	while( fi.Next() ) {
+        fi.GetFilePath(file_path, sizeof(file_path));
+        fi.GetFunctionName(func_name, sizeof(func_name));
+        LogError("%s | %s::%i", file_path, func_name, fi.LineNumber);
+    	}
+    	delete fi;
+		}
 	}
 	return item;
 }
@@ -1500,6 +1512,18 @@ public int Native_VSH2_getIntProp(Handle plugin, int numParams)
 	int item;
 	if( !g_vsh2.m_hPlayerFields[player.index].GetValue(prop_name, item) ) {
 		LogError("VSH2 VSH2Player.GetIntProp :: missing prop '%s'", prop_name);
+		static bool report_once = true;
+		if( report_once ) {
+    	report_once = false;
+    	FrameIterator fi = new FrameIterator();
+    	char func_name[64], file_path[PLATFORM_MAX_PATH];
+    	while( fi.Next() ) {
+        fi.GetFilePath(file_path, sizeof(file_path));
+        fi.GetFunctionName(func_name, sizeof(func_name));
+        LogError("%s | %s::%i", file_path, func_name, fi.LineNumber);
+    	}
+    	delete fi;
+		}
 	}
 	return item;
 }
