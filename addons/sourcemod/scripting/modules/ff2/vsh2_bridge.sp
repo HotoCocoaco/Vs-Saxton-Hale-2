@@ -916,7 +916,7 @@ Action OnPlayerHurtFF2(Event event, const char[] name, bool dontBroadcast)
 					default: return res;
 				}
 				player.iLives = new_lives;
-				
+
 				int new_health = (delta_health % max_health);
 				if( !new_health )
 					new_health = max_health;
@@ -929,7 +929,7 @@ Action OnPlayerHurtFF2(Event event, const char[] name, bool dontBroadcast)
 					case 1: {
 						char boss_name[MAX_BOSS_NAME_SIZE];
 						player.GetName(boss_name);
-						PrintToChatAll("%s lost a life! There is 1 more!", boss_name);
+						PrintToChatAll("%s 失去了一条生命！还剩下最后一条生命！", boss_name);
 						FF2SoundSection sec = identity.soundMap.RandomEntry("last_life");
 						if( sec )
 							sec.PlaySound(player.index, VSH2_VOICE_LOSE);
@@ -937,7 +937,7 @@ Action OnPlayerHurtFF2(Event event, const char[] name, bool dontBroadcast)
 					default: {
 						char boss_name[MAX_BOSS_NAME_SIZE];
 						player.GetName(boss_name);
-						PrintToChatAll("%s lost a life! There are %i more!", boss_name, new_lives);
+						PrintToChatAll("%s 失去了一条生命！还剩下 %i 条生命！", boss_name, new_lives);
 					}
 				}
 			}
@@ -971,7 +971,7 @@ void OnVariablesResetFF2(const VSH2Player vsh2player)
 	player.bNoWeighdown = false;
 	player.bHideHUD = false;
 	player.flRageRatio = 1.0;
-	
+
 	player.SetPropAny("bNotifySMAC_CVars", false);
 	player.SetPropAny("bSupressRAGE", false);
 	player.SetPropFloat("flWeighdownCd", 0.0);
