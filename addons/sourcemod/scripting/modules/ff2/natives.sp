@@ -335,7 +335,7 @@ enum FF2GameModeQ_t {
 	FF2GAMEMODEQ_SOUNDMAP 	= 1 << 1,
 	/// Fill the FF2Identity::abilityList
 	FF2GAMEMODEQ_ABILITIES 	= 1 << 2,
-	
+
 	/// if it was set, and 'FF2GAMEMODEQ_BY_NAME' was set, fill the FF2Identity::VSH2ID else vise-versa
 	FF2GAMEMODEQ_COPY_OTHER	= 1 << 3,
 	/// if it was set, search the boss by FF2Identity::name, else search by FF2Identity::VSH2ID
@@ -368,7 +368,7 @@ any Native_FF2GameMode_QueryBoss(Handle plugin, int numParams)
 	if( flags & FF2GAMEMODEQ_CONFIGMAP ) {
 		out.hCfg = tmp.hCfg.Clone(plugin);
 	}
-	if( flags & FF2GAMEMODEQ_CONFIGMAP ) {
+	if( flags & FF2GAMEMODEQ_ABILITYLIST ) {
 		out.abilityList = new ArrayList();
 		for( int i=tmp.abilityList.Length-1; i>=0; i-- ) {
 			out.abilityList.Push(view_as<ConfigMap>(tmp.abilityList.Get(i)).Clone(plugin));
@@ -377,7 +377,7 @@ any Native_FF2GameMode_QueryBoss(Handle plugin, int numParams)
 	if( flags & FF2GAMEMODEQ_SOUNDMAP ) {
 		out.soundMap = new StringMap();
 		StringMapSnapshot snap = tmp.soundMap.Snapshot();
-		
+
 		for( int i=snap.Length-1; i>=0; i-- ) {
 			int len = snap.KeyBufferSize(i);
 			char[] key = new char[len];
