@@ -1485,7 +1485,7 @@ public void ManageUberDeploy(const BaseBoss medic, const BaseBoss patient)
 
 			SetMediCharge(medigun, g_vsh2.m_hCvars.UberDeployChargeAmnt.FloatValue);
 			TF2_AddCondition(medic.index, TFCond_CritOnWin, 0.5, medic.index);
-			if( IsClientValid(patient.index) && IsPlayerAlive(patient.index) ) {
+			if( IsClientValid(patient.index) && IsPlayerAlive(patient.index) && GetEntProp(medigun, Prop_Send, "m_iItemDefinitionIndex") == 35 ) {
 				TF2_AddCondition(patient.index, TFCond_CritOnWin, 0.5, medic.index);
 				medic.iUberTarget = patient.userid;
 			} else {
