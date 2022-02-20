@@ -1192,7 +1192,7 @@ public Action Timer_UberLoop(Handle timer, any medigunid)
 				return act;
 
 			TF2_AddCondition(medic, TFCond_CritOnWin, 0.5);
-			if( IsClientValid(target) && IsPlayerAlive(target) ) {
+			if( IsClientValid(target) && IsPlayerAlive(target) && GetEntProp(medigun, Prop_Send, "m_iItemDefinitionIndex") == 35 ) {
 				TF2_AddCondition(target, TFCond_CritOnWin, 0.5);
 				med.iUberTarget = GetClientUserId(target);
 			} else {
