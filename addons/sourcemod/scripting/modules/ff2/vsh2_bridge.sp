@@ -544,8 +544,8 @@ void OnPlayerKilledFF2(const VSH2Player attacker, const VSH2Player victim, Event
 		return;
 
 	FF2Identity identity[2]; bool states[2];
-	states[0] = ff2_cfgmgr.FindIdentity(ToFF2Player(attacker).iBossType, identity[0]);
-	states[1] = ff2_cfgmgr.FindIdentity(ToFF2Player(victim).iBossType, identity[1]);
+	states[0] = attacker && ff2_cfgmgr.FindIdentity(ToFF2Player(attacker).iBossType, identity[0]);
+	states[1] = victim && ff2_cfgmgr.FindIdentity(ToFF2Player(victim).iBossType, identity[1]);
 	if( !states[0] && !states[1] )
 		return;
 
