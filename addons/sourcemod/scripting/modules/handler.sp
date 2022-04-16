@@ -2192,7 +2192,7 @@ public void ManageFighterHUD(const BaseBoss fighter) {
 				Format(HUDText, sizeof(HUDText), "%s\n%s", HUDText, status_str);
 			}
 			int spy_secondary = GetPlayerWeaponSlot(i, TFWeaponSlot_Secondary);
-			if( spy_secondary > MaxClients && IsValidEntity(spy_secondary) ) {
+			if( spy_secondary > MaxClients && IsValidEntity(spy_secondary) && GetItemIndex(spy_secondary)==356 ) {
 				Format(HUDText, sizeof(HUDText), "%T", GetWeaponAmmo(spy_secondary) ? "kunai_ready" : "kunai_none", i, HUDText);
 			}
 		}
