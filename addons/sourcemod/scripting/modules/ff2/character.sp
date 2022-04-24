@@ -73,10 +73,10 @@ methodmap FF2AbilityList < ArrayList {
 			FF2Ability cur = this.Get(i);
 
 			cur.GetPlugin(buffer);
-			// Using !StrContains instead of !strcmp to allow old subplugins that were compiled as '.ff2' and have an extension-less 'this_plugin_name' 
+			// Using !StrContains instead of !strcmp to allow old subplugins that were compiled as '.ff2' and have an extension-less 'this_plugin_name'
 			if( !StrContains(plugin_name, buffer) ) {
 				cur.GetAbility(buffer);
-				if( !strcmp(buffer, ability_name) ) 
+				if( !strcmp(buffer, ability_name) )
 					return cur;
 			}
 		}
@@ -309,7 +309,7 @@ static void FF2Character_RegisterAbilities(FF2Character this_char, bool new_api,
 	 *	///	"ability1" spammed across every ability
 	 *	"ability1" {
 	 *		"name"		"rage_stunsg"
-	 *		"plugin_name"	"default_abilities" 
+	 *		"plugin_name"	"default_abilities"
 	 *
 	 *		"slot"		"0"	///	Batfoxkid's api
 	 *		/// "arg0"	"0"	///	default
