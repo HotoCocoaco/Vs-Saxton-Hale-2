@@ -92,7 +92,7 @@ stock void ForceTeamWin(const int team)
 }
 stock int GetItemIndex(const int item)
 {
-	return( IsValidEntity(item) ) ? GetEntProp(item, Prop_Send, "m_iItemDefinitionIndex") : -1;
+	return( IsValidEntity(item) && HasEntProp(item, Prop_Send, "m_iItemDefinitionIndex") ) ? GetEntProp(item, Prop_Send, "m_iItemDefinitionIndex") : -1;
 }
 stock int GetItemQuality(const int item)
 {
