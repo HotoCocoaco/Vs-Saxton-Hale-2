@@ -409,7 +409,7 @@ methodmap BaseFighter {
 		int spawn = -1;
 		float pos[3], mins[3], maxs[3];
 		int spawn_len;
-		int[] spawns = new int[MaxClients];
+		int[] spawns = new int[MaxClients+1];
 		while( (spawn = FindEntityByClassname(spawn, "info_player_teamspawn")) != -1 ) {
 			/// skip disabled spawns.
 			if( GetEntProp(spawn, Prop_Data, "m_bDisabled") )
