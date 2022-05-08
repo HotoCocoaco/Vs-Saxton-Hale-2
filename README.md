@@ -5,6 +5,9 @@
 #### Current DEVELOPMENT Version: *2.12.0*
 [![Develop Build Status](https://travis-ci.org/VSH2-Devs/Vs-Saxton-Hale-2.svg?branch=develop)](https://travis-ci.org/VSH2-Devs/Vs-Saxton-Hale-2)
 
+#### Current DEVELOPMENT STATUS updated 4/12/22
+Transitioning devs, documenting and testing 2.13 for final fixes for release.
+
 **[VSH2 Addons Repository](https://github.com/VSH2-Devs/VSH2-Addons)**
 
 NOTICE: This readme will be updated soon. Thank you for your patience!
@@ -36,12 +39,13 @@ If you do require help in setting up the bosses or at least need some info on th
 * Read the [Wiki](https://github.com/VSH2-Devs/Vs-Saxton-Hale-2/wiki) to get started making your own boss!
 * If you're moving from FF2 to VSH2, we also have the VSH2-FF2 Compatibility Engine, [use this FF2 subplugin library, courtesy of 01Pollux](https://github.com/01Pollux/FF2-Library)
 
-### Who do I talk to?
+### Credits
 
-* **Project Lead:** *mub* - https://steamcommunity.com/id/mubleniumActress/ 
-* **(Former) Lead Developer:** *Nergal the Ashurian/Assyrian* - https://forums.alliedmods.net/member.php?u=176545
+* **Project Lead:** *mub* - https://steamcommunity.com/profiles/76561197961943948/
+* **Former Lead Developer:** *Nergal the Ashurian/Assyrian* - https://forums.alliedmods.net/member.php?u=176545
 * **Repository Manager & Contributor:** *Starblaster 64* - https://forums.alliedmods.net/member.php?u=261662
 * **Contributors:** *Scags/RageNewb* , *BatFoxKid* , *01Pollux/WhiteFalcon* .
+* **Special thanks to** the communities and servers who used or currently use this mod!
 
 ### Contribution Rules
 #### Code Format:
