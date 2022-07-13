@@ -2069,10 +2069,10 @@ public void ManageFighterCrits(const BaseBoss fighter) {
 		}
 	}
 
-	/// Specific weapon crit list
+	/// Specific weapon crit list 特定武器爆击
 	switch( GetItemIndex(weapon) ) {
-		/// Holiday Punch, Short Circuit
-		case 656, 528: {
+		/// Holiday Punch, 短路无爆击
+		case 656: {
 			crit_flags = CRITFLAG_MINI;
 		}
 		/// Market Gardener
