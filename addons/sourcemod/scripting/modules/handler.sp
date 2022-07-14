@@ -657,11 +657,9 @@ public Action ManageOnBossTakeDamage(const BaseBoss victim, int& attacker, int& 
 				/// Chdata's Market Gardener backstab
 				case 416: {
 					if( hitter.bInJump ) {
-						damage = ( Pow(float(victim.iMaxHealth), (0.74074)) - (victim.iMarketted/128*float(victim.iMaxHealth)) )/3.0;
+						damage = ( Pow(float(victim.iMaxHealth), (0.74074)) - (victim.iMarketted/128*float(victim.iMaxHealth)) + 512.0 )/3.0;
 
 						damage *= VSHGameMode.CountBosses(true);
-						/// 额外增加512点伤害。
-						damage += 512;
 
 						/// divide by 3 because this is basedamage and lolcrits (0.714286)) + 1024.0)
 						damagetype |= DMG_CRIT;
