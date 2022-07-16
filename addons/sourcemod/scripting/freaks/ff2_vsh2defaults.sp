@@ -607,7 +607,7 @@ Action Timer_Rage_Stun(Handle timer, FF2Player cur_boss)
 Action Timer_SoloRageResult(Handle timer, FF2Player target)
 {
 	int client = target.index;
-	if( !IsClientInGame(client) || ff2_gm.RoundState != StateRunning )
+	if( client < 1 || client > MaxClients || !IsClientInGame(client) || ff2_gm.RoundState != StateRunning )
 		return Plugin_Continue;
 
 	if( IsPlayerAlive(client) )
