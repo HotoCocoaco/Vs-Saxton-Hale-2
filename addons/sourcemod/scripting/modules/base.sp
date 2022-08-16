@@ -422,6 +422,9 @@ methodmap BaseFighter {
 			if( !CanFitHere(pos, mins, maxs) )
 				continue;
 
+			if ( spawn_len >= MaxClients+1 )
+				break;
+
 			/// if the client is a boss, allow them to use ANY valid spawn!
 			int is_boss; g_vsh2.m_hPlayerFields[this.index].GetValue("iBossType", is_boss);
 			if( team <= 1 || is_boss > -1 ) {
@@ -483,7 +486,7 @@ methodmap BaseFighter {
 		if( this.iTFClass > TFClass_Unknown ) {
 			SetEntProp(this.index, Prop_Send, "m_lifeState", 2);
 			ChangeClientTeam(this.index, team);
-			//SetEntProp(this.index, Prop_Send, "m_lifeState", 0);	//not need to set it because respawn player does that. unless...ehh
+			SetEntProp(this.index, Prop_Send, "m_lifeState", 0);
 			TF2_RespawnPlayer(this.index);
 		}
 	}
@@ -564,9 +567,7 @@ methodmap BaseFighter {
 		char[] helpstr = new char[len];
 		g_vsh2.m_hCfg.Get(class_help[tfclass], helpstr, len);
 		panel.SetTitle(helpstr);
-		char ExitText[64];
-		Format(ExitText, 64, "%T", "Exit", this.index);
-		panel.DrawItem(ExitText);
+		panel.DrawItem("Exit");
 		panel.Send(this.index, HintPanel, 20);
 		delete panel;
 	}
@@ -796,10 +797,8 @@ methodmap BaseBoss < BaseFighter {
 	public void GiveRage(const int damage) {
 		/// Patch Oct 26, 2019.
 		/// Killing boss throws negative value exception for sqrt.
-		float living = float(GetLivingPlayers(VSH2Team_Red));
 		float health = ( (this.iHealth <= 0) ? 1 : this.iHealth ) + 0.0;
-		float rage_amount = damage / SquareRoot(health);
-		rage_amount = rage_amount * SquareRoot(living);
+		float rage_amount = damage / SquareRoot(health) * 1.76;
 		Action act = Call_OnBossGiveRage(this, damage, rage_amount);
 		if( act > Plugin_Changed )
 			return;
