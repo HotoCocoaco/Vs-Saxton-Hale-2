@@ -23,7 +23,7 @@
 #pragma semicolon            1
 #pragma newdecls             required
 
-#define PLUGIN_VERSION       "2.12.0"
+#define PLUGIN_VERSION       "2.12.1"
 #define PLUGIN_DESCRIPT      "VS Saxton Hale 2"
 
 
@@ -182,6 +182,7 @@ enum struct VSH2Globals {
 
 VSH2Globals   g_vsh2;
 VSH2ModuleSys g_modsys;
+VSHGameMode g_vshgm;
 
 #include "modules/stocks.inc" /// include stocks first.
 #include "modules/handler.sp" /// Contains the game mode logic as well

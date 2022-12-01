@@ -636,5 +636,3 @@ public Action SetAmmoPack(Handle timer, DataPack pack) {
 	//SetEntProp(ammopack_ent, Prop_Send, "m_iTeamNum", manager.bMainEnable ? manager.iRedTeam : 0, 4);
 	return Plugin_Continue;
 }
-
-VSHGameMode g_vshgm;
