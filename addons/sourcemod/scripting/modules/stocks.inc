@@ -1047,8 +1047,7 @@ stock void PrepareSoundDir(bool valve = false, char[] dir = "sound")
 			AddFileToDownloadsTable(buffer);
 
 			/// Offsets 'sound/'
-			if( !IsSoundPrecached(buffer[6]) )
-				PrecacheSound(buffer[6]);
+			PrecacheSound(buffer[6]);
 		}
 	}
 	delete l;
@@ -1119,7 +1118,6 @@ stock char[] TF2_GetPlayerClassname(const int client, bool capitalize = false)
 		case TFClass_DemoMan: s = "demoman";
 		case TFClass_Medic: s = "medic";
 		case TFClass_Heavy: s = "heavy";
-		case TFClass_Pyro: s = "pyro";
 		case TFClass_Spy: s = "spy";
 		case TFClass_Engineer: s = "engineer";
 	}
@@ -1131,7 +1129,7 @@ stock char[] TF2_GetPlayerClassname(const int client, bool capitalize = false)
 stock int FindMatchingTeleporter(const int tele)
 {
 	if( !HasEntProp(tele, Prop_Send, "m_bMatchBuilding") )
-		return;
+		return -1;
 
 	int offset = FindSendPropInfo("CObjectTeleporter", "m_bMatchBuilding")+4;
 	return GetEntDataEnt2(tele, offset);
@@ -1155,7 +1153,7 @@ stock bool TF2_IsKillable(const int entity)
 	return res;
 }
 
-stock int SetMetal(const int client, const int amount)
+stock void SetMetal(const int client, const int amount)
 {
 	int iMetalTable = FindSendPropInfo("CTFPlayer", "m_iAmmo");
 	SetEntData(client, iMetalTable + (4*3), amount, 4, true);

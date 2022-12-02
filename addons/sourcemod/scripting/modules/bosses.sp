@@ -14,4 +14,4 @@
 #include "modules/bosses/cbs.sp"
 #include "modules/bosses/hhh.sp"
 #include "modules/bosses/bunny.sp"
-//#include "bosses/plague.sp"
+//#include "modules/bosses/plague.sp"
