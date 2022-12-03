@@ -57,7 +57,7 @@ enum {
 
 enum struct FF2CompatPlugin {
 	FF2ConVars    m_cvars;
-	FF2PluginList m_plugins;
+	//FF2PluginList m_plugins;
 	ConfigMap     m_charcfg;
 	GlobalForward m_forwards[MaxFF2Forwards];
 	Handle        m_hud[HUD_TYPES];
@@ -70,6 +70,11 @@ FF2CompatPlugin ff2;
 VSH2GameMode    vsh2_gm;
 
 #include "modules/ff2/utils.sp"
+#include "modules/ff2/subplugins.sp"
+
+// SM 1.11 compatibility
+FF2PluginList ff2_plugins;
+
 #include "modules/ff2/gamemode.sp"
 #include "modules/ff2/forwards.sp"
 

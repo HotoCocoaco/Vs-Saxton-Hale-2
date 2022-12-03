@@ -592,7 +592,7 @@ stock bool CanFitHere(float origin[3], const float mins[3], const float maxs[3])
 	return false;
 }
 
-stock void SpawnRandomAmmo(int maxlimit, int minlimit)
+stock void SpawnRandomAmmo(int maxlimit, int minlimit, int team = 0)
 {
 	int iEnt = MaxClients+1;
 	int spawned;
@@ -609,11 +609,11 @@ stock void SpawnRandomAmmo(int maxlimit, int minlimit)
 		int ammo = CreateEntityByName("item_ammopack_small");
 		TeleportEntity(ammo, vPos, vAng, NULL_VECTOR);
 		DispatchSpawn(ammo);
-		SetEntProp(ammo, Prop_Send, "m_iTeamNum", g_vsh2.m_hCvars.Enabled.BoolValue ? VSH2Team_Red : VSH2Team_Neutral, 4);
+		SetEntProp(ammo, Prop_Send, "m_iTeamNum", team, 4);
 		++spawned;
 	}
 }
-stock void SpawnRandomHealth(int maxlimit, int minlimit)
+stock void SpawnRandomHealth(int maxlimit, int minlimit, int team = 0)
 {
 	int iEnt = MaxClients+1;
 	int spawned;
@@ -629,7 +629,7 @@ stock void SpawnRandomHealth(int maxlimit, int minlimit)
 		int healthkit = CreateEntityByName("item_healthkit_small");
 		TeleportEntity(healthkit, vPos, vAng, NULL_VECTOR);
 		DispatchSpawn(healthkit);
-		SetEntProp(healthkit, Prop_Send, "m_iTeamNum", g_vsh2.m_hCvars.Enabled.BoolValue ? VSH2Team_Red : VSH2Team_Neutral, 4);
+		SetEntProp(healthkit, Prop_Send, "m_iTeamNum", team, 4);
 		++spawned;
 	}
 }
@@ -1232,4 +1232,13 @@ stock int TF2_GetWearable(int client, int wearableidx)
 	int offset = FindSendPropInfo("CTFPlayer", "m_flMaxspeed") - 20;
 	Address m_hMyWearables = view_as< Address >(LoadFromAddress(GetEntityAddress(client) + view_as< Address >(offset), NumberType_Int32));
 	return LoadFromAddress(m_hMyWearables + view_as< Address >(4 * wearableidx), NumberType_Int32) & 0xFFF;
+}
+
+public Action RemoveEnt(Handle timer, any entid)
+{
+	int ent = EntRefToEntIndex(entid);
+	if( ent > 0 && IsValidEntity(ent) ) {
+		AcceptEntityInput(ent, "Kill");
+	}
+	return Plugin_Continue;
 }

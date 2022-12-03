@@ -958,14 +958,14 @@ public Action OnStomp(int attacker, int victim, float& damageMultiplier, float& 
 }
 #endif
 
-public Action RemoveEnt(Handle timer, any entid)
+/* public Action RemoveEnt(Handle timer, any entid)
 {
 	int ent = EntRefToEntIndex(entid);
 	if( ent > 0 && IsValidEntity(ent) ) {
 		AcceptEntityInput(ent, "Kill");
 	}
 	return Plugin_Continue;
-}
+} */
 
 public Action cdVoiceMenu(int client, const char[] command, int argc)
 {
