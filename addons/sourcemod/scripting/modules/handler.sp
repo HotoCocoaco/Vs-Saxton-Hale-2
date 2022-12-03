@@ -1748,7 +1748,8 @@ public void PrepPlayers(const BaseBoss player)
 		player.HelpPanelClass();
 	}
 
-#if defined _tf2attributes_included
+	//Unable to fix mantreads bug
+/* #if defined _tf2attributes_included
 	/// Fixes mantreads to have jump height again
 	if( g_vshgm.bTF2Attribs ) {
 		/// Patch: Equipping mantreads then equipping gunboats allows you to keep the push force increase.
@@ -1758,7 +1759,8 @@ public void PrepPlayers(const BaseBoss player)
 			TF2Attrib_SetByDefIndex(client, 58, 1.8);
 		}
 	}
-#endif
+#endif */
+
 	static ConfigMap replacer, entry_sect;
 	replacer = g_vsh2.m_hCfg.GetSection("weapon overrides.replace");
 	if( replacer != null ) {
