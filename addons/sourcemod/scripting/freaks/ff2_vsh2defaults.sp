@@ -1098,6 +1098,8 @@ Action Timer_StopSlowMo(Handle timer, FF2Player player)
 		player.SetPropInt("bNotifySMAC_CVars", 0);
 		SDKUnhook(client, SDKHook_PostThinkPost, Post_ClientSlowMoThink);
 	}
+
+	return Plugin_Continue;
 }
 
 void Post_ClientSlowMoThink(int client)
@@ -1159,6 +1161,8 @@ Action Timer_Rage_SlowMo_Attack(Handle timer, DataPack pack)
 			TeleportEntity(client, targetPosition, NULL_VECTOR, NULL_VECTOR);
 		}
 	}
+
+	return Plugin_Continue;
 }
 
 bool TraceRayDontHitSelf(int entity, int mask, int ref)
@@ -1242,6 +1246,8 @@ Action Timer_Disable_Anims(Handle timer)
 			SetEntProp(client, Prop_Send, "m_bCustomModelRotates", player.GetArgF(this_plugin_name, NO_ANIMS, "custom model rotates"));
 		}
 	}
+
+	return Plugin_Continue;
 }
 
 
@@ -1282,6 +1288,8 @@ Action Timer_RemoveEntity(Handle timer, int ref)
 	if( IsValidEntity(ent) ) {
 		RemoveEntity(ent);
 	}
+
+	return Plugin_Continue;
 }
 
 Action Timer_EquipModel(Handle timer, DataPack pack)
@@ -1297,6 +1305,8 @@ Action Timer_EquipModel(Handle timer, DataPack pack)
 		AcceptEntityInput(client, "SetCustomModel");
 		SetEntProp(client, Prop_Send, "m_bUseClassAnimations", 1);
 	}
+
+	return Plugin_Continue;
 }
 #pragma unused Timer_EquipModel
 
@@ -1352,6 +1362,8 @@ int SpawnManyObjects(const char[] classname, const int client, const char[] mode
 
 		SetEntData(entity, m_iPackType, 1, .changeState = true);
 	}
+
+	return 0;
 }
 
 Action Timer_RemoveRagdoll(Handle timer, any userid)
@@ -1380,6 +1392,8 @@ Action Timer_DissolveRagdoll(Handle timer, FF2Player player)
 			RemoveEntity(dissolver);
 		}
 	}
+
+	return Plugin_Continue;
 }
 
 
