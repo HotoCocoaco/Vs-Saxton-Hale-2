@@ -159,8 +159,6 @@ methodmap FF2PluginList < ArrayList {
 	}
 }
 
-// SM 1.11 compatibility
-static FF2PluginList ff2_plugins;
 
 static Handle _FindPlugin(const char[] name)
 {
@@ -179,10 +177,10 @@ static Action _ScheduleAddSubplugin(Handle timer, int pos)
 	if( !ff2.m_vsh2 )
 		return Plugin_Continue;
 
-	FF2SubPlugin info; ff2_plugins.GetInfo(pos, info);
+	FF2SubPlugin info; subplugins.GetInfo(pos, info);
 	info.hndl = _FindPlugin(info.name);
 	info.loading = false;
-	ff2_plugins.SetInfo(pos, info);
+	subplugins.SetInfo(pos, info);
 
 	return Plugin_Continue;
 }

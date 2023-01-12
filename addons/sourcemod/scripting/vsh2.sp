@@ -171,7 +171,6 @@ enum struct VSH2Globals {
 	Handle m_hHUDs[MaxVSH2HUDs];
 	Cookie m_hCookies[MaxVSH2Cookies];
 	VSH2Cvars m_hCvars;
-	//VSHGameMode m_hGamemode;
 	char m_strCurrSong[PLATFORM_MAX_PATH];
 
 	ConfigMap m_hCfg;
@@ -182,7 +181,7 @@ enum struct VSH2Globals {
 
 VSH2Globals   g_vsh2;
 VSH2ModuleSys g_modsys;
-VSHGameMode g_vshgm;
+VSHGameMode   g_vshgm;
 
 #include "modules/stocks.inc" /// include stocks first.
 #include "modules/handler.sp" /// Contains the game mode logic as well
@@ -710,8 +709,8 @@ public void OnClientPostAdminCheck(int client) {
 public void ConnectionMessage(const int userid)
 {
 	int client = GetClientOfUserId(userid);
-	if( IsValidClient(client) ) {
-		CPrintToChat(client, "{olive}[VSH 2]{default} Welcome to VSH2, type /bosshelp for help!");
+	if( IsValidClient(client) && g_vsh2.m_hCvars.Enabled.BoolValue) {
+		CPrintToChat(client, "{olive}[VSH 2]{default} %t", "vsh2_welcome");
 		if( g_vshgm.iRoundState==StateRunning ) {
 			BaseBoss player = BaseBoss(userid, true);
 			if( g_vsh2.m_hCvars.PlayerMusic.BoolValue ) {
@@ -957,15 +956,6 @@ public Action OnStomp(int attacker, int victim, float& damageMultiplier, float& 
 	return ManageOnGoombaStomp(attacker, victim, damageMultiplier, damageAdd, JumpPower);
 }
 #endif
-
-/* public Action RemoveEnt(Handle timer, any entid)
-{
-	int ent = EntRefToEntIndex(entid);
-	if( ent > 0 && IsValidEntity(ent) ) {
-		AcceptEntityInput(ent, "Kill");
-	}
-	return Plugin_Continue;
-} */
 
 public Action cdVoiceMenu(int client, const char[] command, int argc)
 {
@@ -1497,7 +1487,6 @@ public int Native_VSH2_setProperty(Handle plugin, int numParams)
 		player.iQueue = view_as< int >(item);
 	}
 	else g_vsh2.m_hPlayerFields[player.index].SetValue(prop_name, item);
-
 	return 0;
 }
 
@@ -1774,7 +1763,6 @@ public int Native_VSH2_TeleToSpawn(Handle plugin, int numParams)
 {
 	BaseBoss player = GetNativeCell(1);
 	int team = GetNativeCell(2);
-
 	return player.TeleToSpawn(team);
 }
 

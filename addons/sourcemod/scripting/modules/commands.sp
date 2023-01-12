@@ -151,7 +151,6 @@ public int MenuHandler_PickBossSpecial(Menu menu, MenuAction action, int client,
 	} else if( action == MenuAction_End ) {
 		delete menu;
 	}
-
 	return 0;
 }
 
@@ -210,14 +209,12 @@ public Action SetBossMenu(int client, int args)
 		return Plugin_Continue;
 
 	Menu bossmenu = new Menu(MenuHandler_PickBosses);
-	char temp[MAX_PANEL_MSG], bossname[MAX_BOSS_NAME_SIZE];
-	BaseBoss player = BaseBoss(client);
+	char temp[MAX_PANEL_MSG];
+	Format(temp, sizeof(temp), "%T", "set_boss_menu_title", client);
+	bossmenu.SetTitle(temp);
 	Format(temp, sizeof(temp), "%T", "bossmenu_none", client);
 	bossmenu.AddItem("-1", temp);
 	ManageMenu(bossmenu, client); /// in handler.sp
-	char info1[16];	bossmenu.GetItem(player.iPresetType+1, info1, sizeof(info1), _, bossname, sizeof(bossname));	//Get menu item base on iPresetType.
-	Format(temp, sizeof(temp), "%T", "set_boss_menu_title", client, bossname);
-	bossmenu.SetTitle(temp);
 	bossmenu.Display(client, MENU_TIME_FOREVER);
 	return Plugin_Handled;
 }
@@ -233,7 +230,6 @@ public int MenuHandler_PickBosses(Menu menu, MenuAction action, int client, int 
 	} else if( action == MenuAction_End ) {
 		delete menu;
 	}
-
 	return 0;
 }
 
@@ -278,7 +274,6 @@ public int MusicTogglePanelH(Menu menu, MenuAction action, int param1, int param
 			}
 		}
 	}
-
 	return 0;
 }
 
@@ -472,7 +467,6 @@ public int HelpMenuHandler(Menu menu, MenuAction action, int param1, int param2)
 	} else if( action==MenuAction_End ) {
 		delete menu;
 	}
-
 	return 0;
 }
 
@@ -531,6 +525,5 @@ public int MenuHandler_ClassRush(Menu menu, MenuAction action, int client, int p
 	} else if( action == MenuAction_End ) {
 		delete menu;
 	}
-
 	return 0;
 }

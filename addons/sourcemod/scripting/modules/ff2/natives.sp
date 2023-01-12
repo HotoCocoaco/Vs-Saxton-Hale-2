@@ -397,12 +397,12 @@ any Native_FF2GameMode_LoadAbility(Handle plugins, int numParams)
 	char pl_name[FF2_MAX_PLUGIN_NAME];
 	GetNativeString(1, pl_name, sizeof(pl_name));
 
-	return ff2_plugins.TryLoadSubPlugin(pl_name);
+	return subplugins.TryLoadSubPlugin(pl_name);
 }
 
 any Native_FF2GameMode_SubPlugins(Handle plugins, int numParams)
 {
-	FF2PluginList list = ff2_plugins;
+	FF2PluginList list = subplugins;
 	if( !list.Length )
 		return 0;
 
