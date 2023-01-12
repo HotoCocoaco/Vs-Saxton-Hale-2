@@ -84,7 +84,7 @@ methodmap VSHGameMode < StringMap {
 			this.SetValue("iCaptures", val);
 		}
 	}
-	
+
 	property bool bSteam {
 		public get() {
 			bool i; this.GetValue("bSteam", i);
@@ -139,7 +139,7 @@ methodmap VSHGameMode < StringMap {
 			this.SetValue("bTeleToSpawn", val);
 		}
 	}
-	
+
 	property float flHealthTime {
 		public get() {
 			float i; this.GetValue("flHealthTime", i);
@@ -158,7 +158,7 @@ methodmap VSHGameMode < StringMap {
 			this.SetValue("flMusicTime", val);
 		}
 	}
-	
+
 	property float flRoundStartTime {
 		public get() {
 			float i; this.GetValue("flRoundStartTime", i);
@@ -168,7 +168,7 @@ methodmap VSHGameMode < StringMap {
 			this.SetValue("flRoundStartTime", val);
 		}
 	}
-	
+
 	property BaseBoss hNextBoss {
 		public get() {
 			BaseBoss i; this.GetValue("hNextBoss", i);
@@ -182,7 +182,7 @@ methodmap VSHGameMode < StringMap {
 			this.SetValue("hNextBoss", val);
 		}
 	}
-	
+
 	/// When adding a new property, make sure you initialize it to a default
 	public void Init() {
 		this.iRoundState = 0;
@@ -206,7 +206,7 @@ methodmap VSHGameMode < StringMap {
 		this.flRoundStartTime = 0.0;
 		this.hNextBoss = view_as< BaseBoss >(0);
 	}
-	
+
 	public static BaseBoss GetRandomBoss(const bool balive) {
 		int count;
 		BaseBoss[] bosses = new BaseBoss[MaxClients];
@@ -220,7 +220,7 @@ methodmap VSHGameMode < StringMap {
 		}
 		return (!count ? view_as< BaseBoss >(0) : bosses[GetRandomInt(0, count-1)]);
 	}
-	
+
 	public static BaseBoss GetBossByType(const bool balive, const int type) {
 		for( int i=MaxClients; i; --i ) {
 			if( !IsValidClient(i) || (balive && !IsPlayerAlive(i)) )
@@ -241,20 +241,20 @@ methodmap VSHGameMode < StringMap {
 			SetControlPoint(false);
 		}
 	}
-	
+
 	public static int GetQueue(BaseBoss[] players) {
 		int k;
 		for( int i=MaxClients; i; --i ) {
 			if( !IsValidClient(i) || GetClientTeam(i) <= VSH2Team_Spectator )
 				continue;
-			
+
 			BaseBoss boss = BaseBoss(i);
 			if( boss.bIsBoss ) {
 				continue;
 			}
 			players[k++] = boss;
 		}
-		
+
 		for( int i; i<k; i++ ) {
 			for( int n; n<k; n++ ) {
 				if( players[n].iQueue < players[i].iQueue ) {
@@ -266,13 +266,13 @@ methodmap VSHGameMode < StringMap {
 		}
 		return k;
 	}
-	
+
 	public static BaseBoss FindNextBoss() {
 		BaseBoss[] players = new BaseBoss[MaxClients];
 		VSHGameMode.GetQueue(players);
 		return players[0];
 	}
-	
+
 	public static int CountMinions(const bool balive, BaseBoss owner=view_as< BaseBoss >(0)) {
 		int count=0;
 		for( int i=MaxClients; i; --i ) {
@@ -304,7 +304,7 @@ methodmap VSHGameMode < StringMap {
 		for( int i=MaxClients; i; --i ) {
 			if( !IsValidClient(i) )
 				continue;
-			
+
 			BaseBoss boss = BaseBoss(i);
 			if( !boss.bIsBoss )
 				continue;
@@ -315,7 +315,7 @@ methodmap VSHGameMode < StringMap {
 	public static void ReplaceAmmoPack(int ent, int setting) {
 		float pos[3]; GetEntPropVector(ent, Prop_Send, "m_vecOrigin", pos);
 		AcceptEntityInput(ent, "Kill");
-		
+
 		DataPack vecPack = new DataPack();
 		vecPack.WriteFloat(pos[0]);
 		vecPack.WriteFloat(pos[1]);
@@ -332,7 +332,7 @@ methodmap VSHGameMode < StringMap {
 				VSHGameMode.ReplaceAmmoPack(ent, ammo_pack_setting);
 			}
 		}
-		
+
 		bool foundAmmo, foundHealth;
 		int ent = -1, count = 0;
 		while( (ent = FindEntityByClassname(ent, "item_healthkit_small")) != -1 ) {
@@ -357,19 +357,19 @@ methodmap VSHGameMode < StringMap {
 			if( !foundHealth )
 				foundHealth = (count > 3);
 		}
-		
+
 		if( !foundAmmo ) {
 			SpawnRandomAmmo(
 				g_vsh2.m_hCvars.AmmoKitLimitMax.IntValue,
 				g_vsh2.m_hCvars.AmmoKitLimitMin.IntValue,
-				g_vsh2.m_hCvars.Enabled
+				VSH2Team_Red
 			);
 		}
 		if( !foundHealth ) {
 			SpawnRandomHealth(
 				g_vsh2.m_hCvars.HealthKitLimitMax.IntValue,
 				g_vsh2.m_hCvars.HealthKitLimitMin.IntValue,
-				g_vsh2.m_hCvars.Enabled
+				VSH2Team_Red
 			);
 		}
 	}
@@ -380,7 +380,7 @@ methodmap VSHGameMode < StringMap {
 			if( !IsValidClient(i) || !IsPlayerAlive(i) ) {
 				continue;
 			}
-			
+
 			BaseBoss boss = BaseBoss(i);
 			if( !boss.bIsBoss ) {
 				continue;
@@ -401,7 +401,7 @@ methodmap VSHGameMode < StringMap {
 			}
 			return;
 		}
-		
+
 		BaseBoss boss = VSHGameMode.FindNextBoss();
 		if( boss.iPresetType > -1 && this.iSpecial == -1 ) {
 			this.iSpecial = boss.iPresetType;
@@ -425,7 +425,7 @@ methodmap VSHGameMode < StringMap {
 		GetCurrentMap(currentmap, sizeof(currentmap));
 		if( FileExists("bNextMapToFF2") || FileExists("bNextMapToHale") )
 			return true;
-		
+
 		BuildPath(Path_SM, config, PLATFORM_MAX_PATH, "configs/freak_fortress_2/maps.cfg");
 		if( !FileExists(config) ) {
 			BuildPath(Path_SM, config, PLATFORM_MAX_PATH, "configs/saxton_hale/saxton_hale_maps.cfg");
@@ -434,13 +434,13 @@ methodmap VSHGameMode < StringMap {
 				return false;
 			}
 		}
-		
+
 		File file = OpenFile(config, "r");
 		if( !file ) {
 			LogError("[VSH 2] **** Error Reading Maps from %s Config, Disabling VSH 2 ****", config);
 			return false;
 		}
-		
+
 		int tries;
 		while( file.ReadLine(config, sizeof(config)) && tries < 100 ) {
 			++tries;
@@ -448,11 +448,11 @@ methodmap VSHGameMode < StringMap {
 				LogError("[VSH 2] **** Breaking Loop Looking For a Map, Disabling VSH 2 ****");
 				return false;
 			}
-			
+
 			Format(config, strlen(config)-1, config);
 			if( !strncmp(config, "//", 2, false) )
 				continue;
-			
+
 			if( StrContains(currentmap, config, false) != -1 || StrContains(config, "all", false) != -1 ) {
 				file.Close();
 				return true;
@@ -460,13 +460,13 @@ methodmap VSHGameMode < StringMap {
 		}
 		delete file;
 		return false;
-		
+
 		/// do not remove this plz.
 		//if( FindEntityByClassname(-1, "tf_logic_arena") != -1 )
 		//	return true;
 		//return false;
 	}
-	
+
 	public void CheckDoors()
 	{
 		char config[PLATFORM_MAX_PATH], currentmap[99];
@@ -479,7 +479,7 @@ methodmap VSHGameMode < StringMap {
 				this.bDoors = true;
 			return;
 		}
-		
+
 		File file = OpenFile(config, "r");
 		if( !file ) {
 			if( !strncmp(currentmap, lolcano, sizeof(lolcano), false) )
@@ -498,21 +498,21 @@ methodmap VSHGameMode < StringMap {
 		}
 		delete file;
 	}
-	
+
 	public void CheckTeleToSpawn()
 	{
 		char config[PLATFORM_MAX_PATH], currentmap[99];
 		GetCurrentMap(currentmap, sizeof(currentmap));
 		this.bTeleToSpawn = false;
-		
+
 		BuildPath(Path_SM, config, PLATFORM_MAX_PATH, "configs/saxton_hale/saxton_spawn_teleport.cfg");
 		if( !FileExists(config) )
 			return;
-		
+
 		File file = OpenFile(config, "r");
 		if( !file )
 			return;
-		
+
 		while( !file.EndOfFile() && file.ReadLine(config, sizeof(config)) ) {
 			Format(config, strlen(config) - 1, config);
 			if( !strncmp(config, "//", 2, false) ) {
@@ -525,7 +525,7 @@ methodmap VSHGameMode < StringMap {
 		}
 		delete file;
 	}
-	
+
 	public static int GetBosses(BaseBoss[] bossarray, const bool balive) {
 		int count;
 		for( int i=MaxClients; i; --i ) {
@@ -533,7 +533,7 @@ methodmap VSHGameMode < StringMap {
 				continue;
 			else if( balive && !IsPlayerAlive(i) )
 				continue;
-			
+
 			BaseBoss boss = BaseBoss(i);
 			if( boss.bIsBoss )
 				bossarray[count++] = boss;
@@ -547,7 +547,7 @@ methodmap VSHGameMode < StringMap {
 				continue;
 			else if( balive && !IsPlayerAlive(i) )
 				continue;
-			
+
 			BaseBoss boss = BaseBoss(i);
 			if( boss.bIsBoss && boss.iBossType==type )
 				bossarray[count++] = boss;
@@ -561,7 +561,7 @@ methodmap VSHGameMode < StringMap {
 				continue;
 			else if( balive && !IsPlayerAlive(i) )
 				continue;
-			
+
 			BaseBoss red = BaseBoss(i);
 			if( !red.bIsBoss && !red.bIsMinion )
 				redarray[count++] = red;
@@ -598,10 +598,10 @@ methodmap VSHGameMode < StringMap {
 		}
 		return count;
 	}
-	
+
 	public static int CalcBossMaxHP(int red_players, int boss_count) {
-		/// In stocks.sp
-		int max_health = CalcBossHealth(760.8, red_players, 1.0, 1.0341, 2046.0) / (boss_count);
+		/// In stocks.sp  原来是1.0341
+		int max_health = CalcBossHealth(760.8, red_players, 1.0, 1.0541, 2046.0) / (boss_count);
 		if( max_health < 3000 && boss_count==1 ) {
 			max_health = 3000;
 		} else if( max_health > 3000 && boss_count > 1 ) {
@@ -619,13 +619,13 @@ public Action SetAmmoPack(Handle timer, DataPack pack) {
 	vecPos[1] = pack.ReadFloat();
 	vecPos[2] = pack.ReadFloat();
 	int setting = pack.ReadCell();
-	
+
 	char ammopack_names[][] = {
 		"item_ammopack_small",
 		"item_ammopack_medium",
 		"item_ammopack_large"
 	};
-	
+
 	int ammopack_ent = -1;
 	switch( setting ) {
 		case 1: ammopack_ent = CreateEntityByName(ammopack_names[setting-1]);

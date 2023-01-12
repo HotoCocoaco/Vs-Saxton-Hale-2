@@ -195,7 +195,7 @@ methodmap ConfigMapAllocator {
 
 static bool FF2Resolve_GenericInfo(ArrayList delete_list, const ConfigMapAllocator cfg, char[] key, bool[] skip_imports, int skips)
 {
-	char generic_info_keys[][][] = {
+	char generic_info_keys[][][16] = {
 		///{ old section,		new section,		enumeration for <enum> }
 		{ "name", 				"info.name",		"0" },	///	0
 		{ "model", 				"info.model",		"0" },	///	1
@@ -214,10 +214,10 @@ static bool FF2Resolve_GenericInfo(ArrayList delete_list, const ConfigMapAllocat
 		{ "minspeed",			"info.speed.min",	"0" },	///	9
 		{ "maxspeed",			"info.speed.max",	"0" },	///	10
 
-		{ "companion",			"info.companion",	"0" },	/// 11
+		{ "companion",			"info.companion",	"1" },	/// 11
 
 		{ "sound_block_vo",		"info.mute",		"0" },	/// 12
-		{ "version",			"info.version",		"0" },	/// 13
+		{ "version",			"info.version",		"0" }	/// 13
 	};
 	const int size_of_skips = sizeof(generic_info_keys);
 
@@ -238,7 +238,7 @@ static bool FF2Resolve_GenericInfo(ArrayList delete_list, const ConfigMapAllocat
 			cfg.CloneToSection(
 				generic_info_keys[j][0],		///	old_key
 				generic_info_keys[j][1],		///	new_key
-				generic_info_keys[j][2][0]-'0'	///	enumeration
+				StringToInt(generic_info_keys[j][2])	///	enumeration
 			);
 			return true;
 		}

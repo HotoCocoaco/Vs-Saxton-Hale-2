@@ -202,7 +202,7 @@ Action OnBossSelectedFF2(const VSH2Player player)
 		}
 	}
 
-	subplugins.LoadPlugins(identity.abilityList);
+	ff2_plugins.LoadPlugins(identity.abilityList);
 
 	/// Process Set Companion
 	{
@@ -341,7 +341,7 @@ void OnBossThinkFF2(const VSH2Player vsh2player)
 				}
 			} else {
 				SetHudTextParams(-1.0, 0.71, 0.15, 255, 0, 0, 255);
-				ShowSyncHudText(client, ff2.m_hud[HUD_Weighdown], "Weighdown is not ready\nYou must wait %.1f sec", curCd);
+				ShowSyncHudText(client, ff2.m_hud[HUD_Weighdown], "重压未就绪\n你必须等待 %.1f 秒", curCd);
 			}
 		}
 	}
@@ -367,19 +367,14 @@ void OnBossThinkFF2(const VSH2Player vsh2player)
 		ConfigMap hud_section = info_sec.GetSection("HUD");
 		static char buffer[PLATFORM_MAX_PATH];
 
-		char text_color[4]; /// { r, g, b, a }
+		int text_color[4]; /// { r, g, b, a }
 		float text_offset[2]; // { x, y }
 		{
 			ConfigMap color_section = hud_section.GetSection("color");
 			ConfigMap offset_section = hud_section.GetSection("offset");
-			for( int i; i < 4; i++ ) {
-				int text_color_val = text_color[i];
-				if( !color_section.GetIntKeyInt(i, text_color_val) ) {
+			for( int i; i<4; i++ )
+				if( !color_section.GetIntKeyInt(i, text_color[i]) )
 					text_color[i] = 255;
-				} else {
-					text_color[i] = text_color_val;
-				}
-			}
 
 			if( !offset_section.GetIntKeyFloat(0, text_offset[0]) )
 				text_offset[0] = -1.0;
@@ -389,7 +384,7 @@ void OnBossThinkFF2(const VSH2Player vsh2player)
 
 		if( !player.bHideHUD ) {
 			if( !hud_section.Get("text", buffer, sizeof(buffer)) ) {
-				buffer = "Super-Jump: %i%%\n";
+				buffer = "超级跳：%i%%\n";
 			}
 			Format(buffer, sizeof(buffer), buffer, player.GetPropInt("bSuperCharge") ? 1000 : RoundFloat(flCharge) * 4);
 		}
@@ -409,8 +404,8 @@ void OnBossThinkFF2(const VSH2Player vsh2player)
 			client,
 			ff2.m_hud[HUD_Jump],
 				flRage >= 100.0 ?
-				"%sCall for medic to activate your \"RAGE\" ability" :
-				"%sRage is %.1f percent ready",
+				"%s呼叫医生激活你的 \"愤怒\" 能力" :
+				"%s愤怒值 %.1f 百分比就绪",
 			buffer,
 			flRage
 		);
@@ -574,7 +569,7 @@ void OnPlayerKilledFF2(const VSH2Player attacker, const VSH2Player victim, Event
 		} else {
 			/// play sounn_hit*
 			{
-				static const char tf_classes[][] =  { "scout", "sniper", "soldier", "demoman", "medic", "heavy", "pyro", "spy", "engineer" };
+				static const char tf_classes[9][8] =  { "scout", "sniper", "soldier", "demoman", "medic", "heavy", "pyro", "spy", "engineer" };
 
 				int cls = view_as< int >(victim.iTFClass) - 1;
 				char _key[36];
@@ -700,7 +695,7 @@ Action OnRoundEndInfoFF2(const VSH2Player player, bool bossBool, char message[MA
 			FormatEx(
 				message,
 				sizeof(message),
-				"%s (%N) had %i (of %i) health left.",
+				"%s (%N) 有 %i (总量 %i) 生命值剩余",
 				boss_name,
 				cur_boss.index,
 				cur_boss.GetPropInt("iHealth"),
@@ -713,7 +708,7 @@ Action OnRoundEndInfoFF2(const VSH2Player player, bool bossBool, char message[MA
 		for( int j=MaxClients; j; --j ) {
 			if( IsClientInGame(j) && !(GetClientButtons(j) & IN_SCORE) ) {
 				ShowHudText(j, -1, "%s", message);
-				CPrintToChat(j, "{olive}[VSH 2] End of Round{default} %s", message);
+				CPrintToChat(j, "{olive}[VSH 2] 回合结束{default} %s", message);
 			}
 		}
 
@@ -890,7 +885,7 @@ void FinishQueueArray()
 		}
 	}
 
-	subplugins.UnloadAllSubPlugins();
+	ff2_plugins.UnloadAllSubPlugins();
 }
 
 Action OnPlayerHurtFF2(Event event, const char[] name, bool dontBroadcast)
@@ -933,7 +928,7 @@ Action OnPlayerHurtFF2(Event event, const char[] name, bool dontBroadcast)
 					case 1: {
 						char boss_name[MAX_BOSS_NAME_SIZE];
 						player.GetName(boss_name);
-						PrintToChatAll("%s lost a life! There is 1 more!", boss_name);
+						PrintToChatAll("%s 失去了一条生命！还剩下最后一条生命！", boss_name);
 						FF2SoundSection sec = identity.soundMap.RandomEntry("last_life");
 						if( sec )
 							sec.PlaySound(player.index, VSH2_VOICE_LOSE);
@@ -941,7 +936,7 @@ Action OnPlayerHurtFF2(Event event, const char[] name, bool dontBroadcast)
 					default: {
 						char boss_name[MAX_BOSS_NAME_SIZE];
 						player.GetName(boss_name);
-						PrintToChatAll("%s lost a life! There are %i more!", boss_name, new_lives);
+						PrintToChatAll("%s 失去了一条生命！还剩下 %i 条生命！", boss_name, new_lives);
 					}
 				}
 			}

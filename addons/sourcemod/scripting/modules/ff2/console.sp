@@ -101,6 +101,7 @@ static int Handle_PackSelect(Menu menu,  MenuAction action, int param1, int para
 			VSH2GameMode.SetProp("bPackSelected", true);
 		}
 	}
+
 	return 0;
 }
 
@@ -162,7 +163,7 @@ static Action Load_Plugin(int client, int argc)
 		return Plugin_Handled;
 	}
 
-	if( !subplugins.TryLoadSubPlugin(pl_name) ) {
+	if( !ff2_plugins.TryLoadSubPlugin(pl_name) ) {
 		ReplyToCommand(client, "[VSH2/FF2] Failed to reload SubPlugin: \"%s\"", pl_name);
 	}
 	else ReplyToCommand(client, "[VSH2/FF2] Plugin: \"%s\" Loaded successfully", pl_name);
@@ -175,7 +176,7 @@ static Action Unload_Plugin(int client, int argc)
 	char pl_name[FF2_MAX_PLUGIN_NAME];
 
 	GetCmdArgString(pl_name, sizeof(pl_name));
-	subplugins.FindAndErase(pl_name);
+	ff2_plugins.FindAndErase(pl_name);
 
 	ServerCommand("sm plugins unload \"freaks\\%s.ff2\"", pl_name);
 	return Plugin_Handled;
