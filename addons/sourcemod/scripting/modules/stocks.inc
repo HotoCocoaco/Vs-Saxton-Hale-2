@@ -10,6 +10,15 @@ stock int GetHealingTarget(const int client)
 	return -1;
 }
 
+public Action RemoveEnt(Handle timer, any entid)
+{
+	int ent = EntRefToEntIndex(entid);
+	if( ent > 0 && IsValidEntity(ent) ) {
+		AcceptEntityInput(ent, "Kill");
+	}
+	return Plugin_Continue;
+}
+
 stock int GetActiveWep(const int client)
 {
 	int weapon = GetEntPropEnt(client, Prop_Send, "m_hActiveWeapon");
@@ -92,7 +101,7 @@ stock void ForceTeamWin(const int team)
 }
 stock int GetItemIndex(const int item)
 {
-	return( IsValidEntity(item) && HasEntProp(item, Prop_Send, "m_iItemDefinitionIndex") ) ? GetEntProp(item, Prop_Send, "m_iItemDefinitionIndex") : -1;
+	return( IsValidEntity(item) ) ? GetEntProp(item, Prop_Send, "m_iItemDefinitionIndex") : -1;
 }
 stock int GetItemQuality(const int item)
 {
@@ -525,7 +534,7 @@ stock void ForceClientTeamChange(const int client, const int iTeam)
 {
 	SetEntProp(client, Prop_Send, "m_lifeState", 2);
 	ChangeClientTeam(client, iTeam);
-	//SetEntProp(client, Prop_Send, "m_lifeState", 0);
+	SetEntProp(client, Prop_Send, "m_lifeState", 0);
 	TF2_RespawnPlayer(client);
 }
 
@@ -592,7 +601,7 @@ stock bool CanFitHere(float origin[3], const float mins[3], const float maxs[3])
 	return false;
 }
 
-stock void SpawnRandomAmmo(int maxlimit, int minlimit, int team = 0)
+stock void SpawnRandomAmmo(int maxlimit, int minlimit, ConVar enabled)
 {
 	int iEnt = MaxClients+1;
 	int spawned;
@@ -609,11 +618,11 @@ stock void SpawnRandomAmmo(int maxlimit, int minlimit, int team = 0)
 		int ammo = CreateEntityByName("item_ammopack_small");
 		TeleportEntity(ammo, vPos, vAng, NULL_VECTOR);
 		DispatchSpawn(ammo);
-		SetEntProp(ammo, Prop_Send, "m_iTeamNum", team, 4);
+		SetEntProp(ammo, Prop_Send, "m_iTeamNum", enabled.BoolValue? VSH2Team_Red : VSH2Team_Neutral, 4);
 		++spawned;
 	}
 }
-stock void SpawnRandomHealth(int maxlimit, int minlimit, int team = 0)
+stock void SpawnRandomHealth(int maxlimit, int minlimit, ConVar enabled)
 {
 	int iEnt = MaxClients+1;
 	int spawned;
@@ -629,7 +638,7 @@ stock void SpawnRandomHealth(int maxlimit, int minlimit, int team = 0)
 		int healthkit = CreateEntityByName("item_healthkit_small");
 		TeleportEntity(healthkit, vPos, vAng, NULL_VECTOR);
 		DispatchSpawn(healthkit);
-		SetEntProp(healthkit, Prop_Send, "m_iTeamNum", team, 4);
+		SetEntProp(healthkit, Prop_Send, "m_iTeamNum", enabled.BoolValue? VSH2Team_Red : VSH2Team_Neutral, 4);
 		++spawned;
 	}
 }
@@ -701,8 +710,6 @@ stock int GetDemoShield(int client)
 	int numwearables = TF2_GetNumWearables(client);
 	for( int i=numwearables-1; i>=0; --i ) {
 		int wearable = TF2_GetWearable(client, i);
-		if ( !IsValidEntity(wearable) )
-			continue;
 		if( wearable && HasEntProp(wearable, Prop_Send, "m_bDisguiseWearable") && !GetEntProp(wearable, Prop_Send, "m_bDisguiseWearable") ) {
 			char cls[32];
 			if( GetEntityClassname(wearable, cls, sizeof(cls)), !strncmp(cls, "tf_wearable_demo", 16, false) ) {
@@ -1129,8 +1136,8 @@ stock char[] TF2_GetPlayerClassname(const int client, bool capitalize = false)
 stock int FindMatchingTeleporter(const int tele)
 {
 	if( !HasEntProp(tele, Prop_Send, "m_bMatchBuilding") )
-		return -1;
-
+		return 0;
+	
 	int offset = FindSendPropInfo("CObjectTeleporter", "m_bMatchBuilding")+4;
 	return GetEntDataEnt2(tele, offset);
 }
@@ -1149,7 +1156,7 @@ stock bool TF2_IsKillable(const int entity)
 	}
 	if( GetEntProp(entity, Prop_Data, "m_takedamage") != 2 )
 		res = false;
-
+	
 	return res;
 }
 
@@ -1176,7 +1183,7 @@ stock int GetRandomClient(bool balive=true, int team=0)
 			continue;
 		else if( team && GetClientTeam(i) != team )
 			continue;
-
+		
 		players[count++] = i;
 	}
 	return !count ? -1 : players[GetRandomInt(0, count-1)];
@@ -1192,7 +1199,7 @@ stock void HealPlayer(const int client, const int health, bool on_hud=false, boo
 	int hp     = GetEntProp(client, Prop_Data, "m_iHealth");
 	int maxhp  = GetEntProp(client, Prop_Data, "m_iMaxHealth");
 	int diff = health;
-
+	
 	int max_overheal = RoundFloat(FindConVar("tf_max_health_boost").FloatValue * maxhp);
 	if( !overridehp && diff > max_overheal - hp ) {
 		diff = max_overheal - hp;
@@ -1202,7 +1209,7 @@ stock void HealPlayer(const int client, const int health, bool on_hud=false, boo
 			diff = overheal_limit - hp;
 		}
 	}
-
+	
 	if( diff > 0 ) {
 		SetEntityHealth(client, hp + diff);
 		if( on_hud ) {
@@ -1232,13 +1239,4 @@ stock int TF2_GetWearable(int client, int wearableidx)
 	int offset = FindSendPropInfo("CTFPlayer", "m_flMaxspeed") - 20;
 	Address m_hMyWearables = view_as< Address >(LoadFromAddress(GetEntityAddress(client) + view_as< Address >(offset), NumberType_Int32));
 	return LoadFromAddress(m_hMyWearables + view_as< Address >(4 * wearableidx), NumberType_Int32) & 0xFFF;
-}
-
-public Action RemoveEnt(Handle timer, any entid)
-{
-	int ent = EntRefToEntIndex(entid);
-	if( ent > 0 && IsValidEntity(ent) ) {
-		AcceptEntityInput(ent, "Kill");
-	}
-	return Plugin_Continue;
 }

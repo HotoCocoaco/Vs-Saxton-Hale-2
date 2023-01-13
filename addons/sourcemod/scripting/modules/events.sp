@@ -156,7 +156,6 @@ public Action DelaySpawn(BaseBoss boss)
 		boss.ConvertToBoss();
 		boss.iPresetType = -1; /// they got what they wanted now reset this var
 	}
-
 	return Plugin_Continue;
 }
 
