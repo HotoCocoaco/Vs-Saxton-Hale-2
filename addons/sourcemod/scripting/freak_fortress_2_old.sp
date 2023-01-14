@@ -318,6 +318,7 @@ any Native_SetBossRageDamage(Handle plugin, int numParams)
 	int boss = GetNativeCell(1);
 	FF2Player player = boss ? FF2Player(boss) : FF2_ZeroBossToFF2Player();
 	player.SetPropFloat("flRageDamage", GetNativeCell(2));
+	
 	return 0;
 }
 
@@ -517,6 +518,7 @@ any Native_LogError(Handle plugin, int numParams)
 	if (error != SP_ERROR_NONE)
 		ThrowNativeError(error, "Failed to format.");
 	else FF2GameMode.LogError(buffer);
+
 	return 0;
 }
 
@@ -553,6 +555,7 @@ any Native_ReportError(Handle plugin, int numParams)
 	if (error != SP_ERROR_NONE)
 		ThrowNativeError(error, "Failed to format.");
 	else FF2GameMode.ReportError(FF2Player(GetNativeCell(1)), buffer);
+
 	return 0;
 }
 

@@ -1321,7 +1321,7 @@ void UpdateCheatValue(const char[] value)
 int SpawnManyObjects(const char[] classname, const int client, const char[] model, const int skin=0, const int amount=14, const float distance=30.0)
 {
 	if( !client || !IsClientInGame(client) )
-		return 0;
+		return;
 
 	static int m_iPackType = 0;
 	if( !m_iPackType ) {

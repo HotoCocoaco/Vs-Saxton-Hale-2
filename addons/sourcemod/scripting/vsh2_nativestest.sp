@@ -80,7 +80,6 @@ public Action fwdBossSelected(const VSH2Player base)
 			PrintToConsole(i, "fwdBossSelected:: ==> %N @ index: %i", base.index, base.index);
 		}
 	}
-	return Plugin_Continue;
 }
 
 public void fwdOnTouchPlayer(const VSH2Player victim, const VSH2Player attacker)
@@ -94,17 +93,17 @@ public void fwdOnTouchBuilding(const VSH2Player attacker, const int building)
 	PrintToConsole(attacker.index, "fwdOnTouchBuilding:: ==> attacker name: %N | Building Reference %i", attacker.index, building);
 }
 
-public void fwdOnBossThink(const VSH2Player player)
+public Action fwdOnBossThink(const VSH2Player player)
 {
 	PrintToConsole(player.index, "fwdOnBossThink:: ==> player name: %N", player.index);
 }
 
-public void fwdOnBossThinkPost(const VSH2Player player)
+public Action fwdOnBossThinkPost(const VSH2Player player)
 {
 	PrintToConsole(player.index, "fwdOnBossThinkPost:: ==> player name: %N", player.index);
 }
 
-public void fwdOnBossModelTimer(const VSH2Player player)
+public Action fwdOnBossModelTimer(const VSH2Player player)
 {
 	PrintToConsole(player.index, "fwdOnBossModelTimer:: ==> player name: %N", player.index);
 }
@@ -416,7 +415,7 @@ public void fwdOnRedPlayerThinkPost(const VSH2Player player) {
 	PrintToConsole(player.index, "fwdOnRedPlayerThinkPost:: %N", player.index);
 }
 
-public void fwdOnScoreTally(const VSH2Player player, int& points_earned, int& queue_earned) {
+public Action fwdOnScoreTally(const VSH2Player player, int& points_earned, int& queue_earned) {
 	PrintToChatAll("fwdOnScoreTally:: %N: points - %i, queue - %i", player.index, points_earned, queue_earned);
 }
 

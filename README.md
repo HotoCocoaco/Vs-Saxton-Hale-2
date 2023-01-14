@@ -2,7 +2,7 @@
 
 #### Current STABLE Version: *2.0.5*
 [![Master Build Status](https://travis-ci.org/VSH2-Devs/Vs-Saxton-Hale-2.svg?branch=master)](https://travis-ci.org/VSH2-Devs/Vs-Saxton-Hale-2)
-#### Current DEVELOPMENT Version: *2.12.1*
+#### Current DEVELOPMENT Version: *2.12.0*
 [![Develop Build Status](https://travis-ci.org/VSH2-Devs/Vs-Saxton-Hale-2.svg?branch=develop)](https://travis-ci.org/VSH2-Devs/Vs-Saxton-Hale-2)
 
 #### Current DEVELOPMENT STATUS updated 4/12/22
@@ -41,8 +41,8 @@ If you do require help in setting up the bosses or at least need some info on th
 
 ### Credits
 
-* **Owner:** *Nergal the Ashurian/Assyrian* - https://forums.alliedmods.net/member.php?u=176545
-* **Current Project Lead:** *mub* - https://steamcommunity.com/profiles/76561197961943948/
+* **Project Lead:** *mub* - https://steamcommunity.com/profiles/76561197961943948/
+* **Former Lead Developer:** *Nergal the Ashurian/Assyrian* - https://forums.alliedmods.net/member.php?u=176545
 * **Repository Manager & Contributor:** *Starblaster 64* - https://forums.alliedmods.net/member.php?u=261662
 * **Contributors:** *Scags/RageNewb* , *BatFoxKid* , *01Pollux/WhiteFalcon* .
 * **Special thanks to** the communities and servers who used or currently use this mod!
