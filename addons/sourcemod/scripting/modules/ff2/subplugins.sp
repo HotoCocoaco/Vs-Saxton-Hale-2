@@ -159,9 +159,6 @@ methodmap FF2PluginList < ArrayList {
 	}
 }
 
-// SM 1.11 compatibility
-static FF2PluginList ff2_plugins;
-
 static Handle _FindPlugin(const char[] name)
 {
 	char pl_name[PLATFORM_MAX_PATH];
