@@ -214,7 +214,7 @@ static bool FF2Resolve_GenericInfo(ArrayList delete_list, const ConfigMapAllocat
 		{ "minspeed",			"info.speed.min",	"0" },	///	9
 		{ "maxspeed",			"info.speed.max",	"0" },	///	10
 
-		{ "companion",			"info.companion",	"0" },	/// 11
+		{ "companion",			"info.companion",	"1" },	/// 11
 
 		{ "sound_block_vo",		"info.mute",		"0" },	/// 12
 		{ "version",			"info.version",		"0" },	/// 13
