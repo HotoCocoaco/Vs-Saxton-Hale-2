@@ -12,7 +12,7 @@
 
 #define CBSTheme		"saxton_hale/the_millionaires_holiday.mp3"
 
-#define CBSRAGEDIST		320.0
+#define CBSRAGEDIST		600.0
 #define CBS_MAX_ARROWS		9
 
 
