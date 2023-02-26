@@ -1437,9 +1437,10 @@ public void ManageResetVariables(const BaseBoss base)
 }
 public void ManageEntityCreated(const int entity, const char[] classname)
 {
-	if( StrContains(classname, "rune") != -1 ) {
-		CreateTimer(0.1, RemoveEnt, EntIndexToEntRef(entity));
-	} else if( StrEqual(classname, "tf_dropped_weapon") && !g_vsh2.m_hCvars.DroppedWeapons.BoolValue ) {
+	// if( StrContains(classname, "rune") != -1 ) {
+	// 	CreateTimer(0.1, RemoveEnt, EntIndexToEntRef(entity));
+	// } else 
+	if( StrEqual(classname, "tf_dropped_weapon") && !g_vsh2.m_hCvars.DroppedWeapons.BoolValue ) {
 		/// Remove dropped weapons to avoid bad things
 		AcceptEntityInput(entity, "kill");
 	} else if( !strcmp(classname, "tf_projectile_cleaver", false) ) {
