@@ -223,6 +223,7 @@ public void OnPluginStart()
 	RegConsoleCmd("sm_sethale",    SetBossMenu, "Sets your boss.");
 	RegConsoleCmd("sm_ff2boss",    SetBossMenu, "Sets your boss.");
 	RegConsoleCmd("sm_haleboss",   SetBossMenu, "Sets your boss.");
+	RegConsoleCmd("sm_boss",   SetBossMenu, "Sets your boss.");
 
 	RegConsoleCmd("sm_halemusic",  MusicTogglePanelCmd);
 	RegConsoleCmd("sm_hale_music", MusicTogglePanelCmd);
