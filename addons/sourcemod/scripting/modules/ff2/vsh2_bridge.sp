@@ -183,7 +183,7 @@ Action OnBossSelectedFF2(const VSH2Player player)
 			int boss_id = FF2_FindNonHiddenBoss(copy_identity, client);
 			if( boss_id!=-1 ) {
 				identity = copy_identity;
-				VSH2GameMode.SetProp("iSpecial", copy_identity.VSH2ID);
+				player.SetPropInt("iSpecial", copy_identity.VSH2ID);
 				player.SetPropInt("iBossType", copy_identity.VSH2ID);
 			}
 		}
