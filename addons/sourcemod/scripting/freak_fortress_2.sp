@@ -1,5 +1,5 @@
 #include <morecolors>
-#include <tf2_stocks>
+#include <tf2utils>
 
 #undef REQUIRE_PLUGIN
 #include <vsh2>
@@ -10,6 +10,7 @@
 #define PLUGIN_VERSION "1.1.3"
 
 #include <cfgmap>
+#include <tf2attributes>
 #include "modules/stocks.inc"
 
 #pragma semicolon        1

@@ -20,6 +20,10 @@ methodmap FF2Character {
 	property ConfigMap MapExcludeSection {
 		public get() { return( this.Config.GetSection("map_exclude") ); }
 	}
+
+	property ConfigMap WearableSection {
+		public get() { return( this.Config.GetSection("wearables") ); }
+	}
 }
 
 methodmap FF2Ability {
