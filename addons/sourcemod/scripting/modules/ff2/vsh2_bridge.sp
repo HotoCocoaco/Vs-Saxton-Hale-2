@@ -494,6 +494,7 @@ void OnBossEquippedFF2(const VSH2Player player)
 
 	{
 		ConfigMap wearablecfg = boss_cfg.WearableSection;
+		if ( wearablecfg == null )	return;
 
 		int wearable_count = wearablecfg.Size;
 		char attr[64]; int index, lvl, qual;
