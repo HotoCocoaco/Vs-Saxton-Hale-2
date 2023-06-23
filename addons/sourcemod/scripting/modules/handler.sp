@@ -2136,7 +2136,7 @@ public void ManageFighterCrits(const BaseBoss fighter) {
 				if( IsValidEntity(sentry) ) {
 					/// Trying to target minions as well
 					int enemy = GetEntPropEnt(sentry, Prop_Send, "m_hEnemy");
-					if( enemy > 0 && GetClientTeam(enemy) == VSH2Team_Boss ) {
+					if( enemy > 0  && enemy <= MaxClients && GetClientTeam(enemy) == VSH2Team_Boss ) {
 						SetEntProp(i, Prop_Send, "m_iRevengeCrits", 3);
 						TF2_AddCondition(i, TFCond_Kritzkrieged, 0.2);
 					} else {
