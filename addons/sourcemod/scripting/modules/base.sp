@@ -1036,6 +1036,9 @@ public void TF2AttribsRemoveAll(const int ent)
 public void TF2AttribsRemove(const int userid, const int attrib)
 {
 #if defined _tf2attributes_included
-	TF2Attrib_RemoveByDefIndex(GetClientOfUserId(userid), attrib);
+	int client = GetClientOfUserId(userid);
+	if ( IsClientValid(client) )	{
+		TF2Attrib_RemoveByDefIndex(client, attrib);
+	}
 #endif
 }
