@@ -14,6 +14,7 @@
 
 #define CBSRAGEDIST		600.0
 #define CBS_MAX_ARROWS		9
+#define CBR_RAGEDAMAGE	2500.0
 
 
 
@@ -69,6 +70,7 @@ methodmap CChristian < BaseBoss {
 		Format(attribs, sizeof(attribs), "2 ; 3.1; 525 ; 0.5; 259 ; 1.0; 1 ; 0.85; 149 ; 10.0");
 		int SaxtonWeapon = this.SpawnWeapon("tf_weapon_club", 171, 100, 5, attribs);
 		SetEntPropEnt(this.index, Prop_Send, "m_hActiveWeapon", SaxtonWeapon);
+		this.flRageDamage = CBR_RAGEDAMAGE;
 	}
 	public void RageAbility() {
 		TF2_AddCondition(this.index, view_as< TFCond >(42), 4.0);

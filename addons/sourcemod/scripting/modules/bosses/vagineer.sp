@@ -23,6 +23,7 @@
 #define VagineerFail		"saxton_hale/vagineer_responce_fail_"		/// 1-2
 
 #define VAGRAGEDIST     533.333
+#define VAGRAGEDAMAGE	2500.0
 
 
 methodmap CVagineer < BaseBoss {
@@ -91,6 +92,7 @@ methodmap CVagineer < BaseBoss {
 		Format(attribs, sizeof(attribs), "68; 2.0; 2; 3.1; 259; 1.0; 436; 1.0; 275 ; 1; 525 ; 0.4; 286 ; 2.2");
 		int SaxtonWeapon = this.SpawnWeapon("tf_weapon_wrench", 169, 100, 5, attribs);
 		SetEntPropEnt(this.index, Prop_Send, "m_hActiveWeapon", SaxtonWeapon);
+		this.flRageDamage = VAGRAGEDAMAGE;
 	}
 	public void RageAbility() {
 		TF2_AddCondition(this.index, view_as< TFCond >(42), 4.0);

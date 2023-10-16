@@ -11,6 +11,7 @@
 
 #define HALEHHH_TELEPORTCHARGETIME     2
 #define HALEHHH_TELEPORTCHARGE         (25.0 * HALEHHH_TELEPORTCHARGETIME)
+#define HALEHHH_RAGEDAMAGE 2500.0
 
 
 methodmap CHHHJr < BaseBoss {
@@ -144,6 +145,7 @@ methodmap CHHHJr < BaseBoss {
 		int SaxtonWeapon = this.SpawnWeapon("tf_weapon_sword", 266, 100, 5, attribs);
 		SetEntPropEnt(this.index, Prop_Send, "m_hActiveWeapon", SaxtonWeapon);
 		this.flCharge = g_vsh2.m_hCvars.HHHTeleCooldown.FloatValue * 0.9091;
+		this.flRageDamage = HALEHHH_RAGEDAMAGE;
 	}
 	public void RageAbility()
 	{

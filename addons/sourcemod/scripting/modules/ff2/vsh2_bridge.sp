@@ -563,6 +563,9 @@ void OnBossInitializedFF2(const VSH2Player vsh2player)
 		if( !cfg.GetFloat("damage_ratio", val) )
 			val = 1.0;
 		player.flRageRatio = val;
+		if ( !cfg.GetFloat("ragedamage", val) )
+			val = 0.0;
+		player.flRageDamage = val;
 	}
 }
 
@@ -1000,7 +1003,10 @@ Action OnPlayerHurtFF2(Event event, const char[] name, bool dontBroadcast)
 	if( rage > 850.0 )
 		rage = 850.0;
 
-	player.GiveRage(RoundToCeil(rage));
+	if ( player.flRageDamage )
+		player.flRAGE += rage * 100.0 / player.flRageDamage;
+	else
+		player.GiveRage(RoundToCeil(rage));
 	return Plugin_Continue;
 }
 
@@ -1023,6 +1029,7 @@ void OnVariablesResetFF2(const VSH2Player vsh2player)
 	player.bNoWeighdown = false;
 	player.bHideHUD = false;
 	player.flRageRatio = 1.0;
+	player.flRageDamage = 2500.0;
 
 	player.SetPropAny("bNotifySMAC_CVars", false);
 	player.SetPropAny("bSupressRAGE", false);

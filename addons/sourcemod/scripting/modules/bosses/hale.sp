@@ -99,6 +99,7 @@ static const char HaleMatsV2[][] = {
 #define HALE_JUMPCHARGE		(25*1.0)
 #define HALERAGEDIST		800.0
 #define HALE_WEIGHDOWN_TIME	3.0
+#define HALE_RAGEDAMAGE 2200.0
 
 
 methodmap CHale < BaseBoss {
@@ -160,6 +161,7 @@ methodmap CHale < BaseBoss {
 		Format(attribs, sizeof(attribs), "68 ; 2.0; 2 ; 3.3; 259 ; 1.0; 525 ; 0.4; 275 ; 1; 214; %d", GetRandomInt(999, 9999));
 		int SaxtonWeapon = this.SpawnWeapon("tf_weapon_shovel", 5, 100, 5, attribs);
 		SetEntPropEnt(this.index, Prop_Send, "m_hActiveWeapon", SaxtonWeapon);
+		this.flRageDamage = HALE_RAGEDAMAGE;
 	}
 	public void RageAbility() {
 		TF2_AddCondition(this.index, view_as< TFCond >(42), 4.0);

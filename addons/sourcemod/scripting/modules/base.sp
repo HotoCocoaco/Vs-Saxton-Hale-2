@@ -770,6 +770,19 @@ methodmap BaseBoss < BaseFighter {
 			g_vsh2.m_hPlayerFields[this.index].SetValue("flRAGE", val);
 		}
 	}
+	property float flRageDamage {
+		public get() { /** Rage damage should never go under or equal 0.0 */
+			float i; g_vsh2.m_hPlayerFields[this.index].GetValue("flRageDamage", i);
+			if ( i <= 0.0 ) {
+				i = 2500.0;
+				g_vsh2.m_hPlayerFields[this.index].SetValue("flRageDamage", i);
+			}
+			return i;
+		}
+		public set( const float val ) {
+			g_vsh2.m_hPlayerFields[this.index].SetValue("flRageDamage", val);
+		}
+	}
 	property float flKillSpree {
 		public get() {
 			float i; g_vsh2.m_hPlayerFields[this.index].GetValue("flKillSpree", i);
@@ -797,8 +810,9 @@ methodmap BaseBoss < BaseFighter {
 	public void GiveRage(const int damage) {
 		/// Patch Oct 26, 2019.
 		/// Killing boss throws negative value exception for sqrt.
-		float health = ( (this.iHealth <= 0) ? 1 : this.iHealth ) + 0.0;
-		float rage_amount = damage / SquareRoot(health) * 1.76;
+		//float health = ( (this.iHealth <= 0) ? 1 : this.iHealth ) + 0.0;
+		//float rage_amount = damage / SquareRoot(health) * 1.76;
+		float rage_amount = damage*100.0/this.flRageDamage;
 		Action act = Call_OnBossGiveRage(this, damage, rage_amount);
 		if( act > Plugin_Changed )
 			return;

@@ -8,6 +8,8 @@
 //#define ReloadEggModel	"models/player/saxton_hale/c_easter_cannonball.mdl"
 //#define ReloadEggModelPrefix	"models/player/saxton_hale/c_easter_cannonball"
 
+#define BUNNY_RAGEDAMAGE 2500.0
+
 /// materials
 static const char BunnyMaterials[][] = {
 	"materials/models/player/easter_demo/demoman_head_red.vmt",
@@ -168,6 +170,7 @@ methodmap CBunny < BaseBoss {
 		Format(attribs, sizeof(attribs), "68 ; 2.0; 2 ; 3.0; 259 ; 1.0; 326 ; 1.3; 525 ; 0.4; 275 ; 1");
 		int SaxtonWeapon = this.SpawnWeapon("tf_weapon_bottle", 609, 100, 5, attribs);
 		SetEntPropEnt(this.index, Prop_Send, "m_hActiveWeapon", SaxtonWeapon);
+		this.flRageDamage = BUNNY_RAGEDAMAGE;
 	}
 	public void RageAbility() {
 		TF2_AddCondition(this.index, view_as< TFCond >(42), 4.0);
