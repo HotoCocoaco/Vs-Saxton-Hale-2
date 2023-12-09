@@ -289,14 +289,14 @@
 	}
 	
 	"abilitycmd_usage" {
-		"chi"      "用法：sm_vsh2_ability <目标> <点数>"
+		"chi"      "用法：sm_vsh2_ability <目标> <能力名称> <+/-/0> (+ 添加 | - 移除 | 0 移除所有)"
 	}
 	
 	"command_boss_select_ingame_only" {
-		"chi" "command can only be used in-game."
+		"chi" "指令只可以在游戏中使用"
 	}
 	"boss_cookie_reset" {
-		"chi" "Your Set-Boss data has been reset."
+		"chi" "你的设置BOSS数据已重置。"
 	}
 	
 	"be_partner_panel_title" {
