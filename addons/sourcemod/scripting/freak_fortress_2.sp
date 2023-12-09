@@ -1,5 +1,5 @@
 #include <morecolors>
-#include <tf2utils>
+#include <tf2_stocks>
 
 #undef REQUIRE_PLUGIN
 #include <vsh2>
@@ -10,7 +10,6 @@
 #define PLUGIN_VERSION "1.1.3"
 
 #include <cfgmap>
-#include <tf2attributes>
 #include "modules/stocks.inc"
 
 #pragma semicolon        1
@@ -58,7 +57,6 @@ enum {
 
 enum struct FF2CompatPlugin {
 	FF2ConVars    m_cvars;
-	//FF2PluginList m_plugins;
 	ConfigMap     m_charcfg;
 	GlobalForward m_forwards[MaxFF2Forwards];
 	Handle        m_hud[HUD_TYPES];
@@ -69,7 +67,7 @@ enum struct FF2CompatPlugin {
 
 FF2CompatPlugin ff2;
 VSH2GameMode    vsh2_gm;
-FF2PluginList ff2_plugins;
+FF2PluginList   subplugins;
 
 #include "modules/ff2/utils.sp"
 #include "modules/ff2/gamemode.sp"

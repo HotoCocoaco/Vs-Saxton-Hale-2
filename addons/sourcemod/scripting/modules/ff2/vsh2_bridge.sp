@@ -202,7 +202,7 @@ Action OnBossSelectedFF2(const VSH2Player player)
 		}
 	}
 
-	ff2_plugins.LoadPlugins(identity.abilityList);
+	subplugins.LoadPlugins(identity.abilityList);
 
 	/// Process Set Companion
 	{
@@ -341,7 +341,7 @@ void OnBossThinkFF2(const VSH2Player vsh2player)
 				}
 			} else {
 				SetHudTextParams(-1.0, 0.71, 0.15, 255, 0, 0, 255);
-				ShowSyncHudText(client, ff2.m_hud[HUD_Weighdown], "重压未就绪\n你必须等待 %.1f 秒", curCd);
+				ShowSyncHudText(client, ff2.m_hud[HUD_Weighdown], "Weighdown is not ready\nYou must wait %.1f sec", curCd);
 			}
 		}
 	}
@@ -367,16 +367,16 @@ void OnBossThinkFF2(const VSH2Player vsh2player)
 		ConfigMap hud_section = info_sec.GetSection("HUD");
 		static char buffer[PLATFORM_MAX_PATH];
 
-		int text_color[4]; /// { r, g, b, a }
+		char text_color[4]; /// { r, g, b, a }
 		float text_offset[2]; // { x, y }
 		{
 			ConfigMap color_section = hud_section.GetSection("color");
 			ConfigMap offset_section = hud_section.GetSection("offset");
-			for( int i; i<4; i++ )	{
+			for( int i; i < 4; i++ ) {
 				int text_color_val = text_color[i];
 				if( !color_section.GetIntKeyInt(i, text_color_val) ) {
 					text_color[i] = 255;
-				}	else	{
+				} else {
 					text_color[i] = text_color_val;
 				}
 			}
@@ -389,7 +389,7 @@ void OnBossThinkFF2(const VSH2Player vsh2player)
 
 		if( !player.bHideHUD ) {
 			if( !hud_section.Get("text", buffer, sizeof(buffer)) ) {
-				buffer = "超级跳：%i%%\n";
+				buffer = "Super-Jump: %i%%\n";
 			}
 			Format(buffer, sizeof(buffer), buffer, player.GetPropInt("bSuperCharge") ? 1000 : RoundFloat(flCharge) * 4);
 		}
@@ -409,8 +409,8 @@ void OnBossThinkFF2(const VSH2Player vsh2player)
 			client,
 			ff2.m_hud[HUD_Jump],
 				flRage >= 100.0 ?
-				"%s呼叫医生激活你的 \"愤怒\" 能力" :
-				"%s愤怒值 %.1f 百分比就绪",
+				"%sCall for medic to activate your \"RAGE\" ability" :
+				"%sRage is %.1f percent ready",
 			buffer,
 			flRage
 		);
@@ -466,76 +466,28 @@ void OnBossEquippedFF2(const VSH2Player player)
 
 	player.SetName(name);
 	player.RemoveAllItems();
-	
-	{
-		ConfigMap wepcfg = boss_cfg.WeaponSection;
 
-		int wep_count = wepcfg.Size;
-		char attr[64]; int index; int lvl; int qual;
-		for( int i; i<wep_count; i++ ) {
-			ConfigMap wep = wepcfg.GetIntSection(i);
-			if( !wep )
-				break;
+	ConfigMap wepcfg = boss_cfg.WeaponSection;
 
-			if( !wep.GetInt("index", index) )
-				continue;
-			if( !wep.Get("name", name, sizeof(name)) )
-				continue;
-			if( !wep.GetInt("level", lvl) )
-				lvl = 39;
-			if( !wep.GetInt("quality", qual) )
-				qual = 5;
+	int wep_count = wepcfg.Size;
+	char attr[64]; int index; int lvl; int qual;
+	for( int i; i<wep_count; i++ ) {
+		ConfigMap wep = wepcfg.GetIntSection(i);
+		if( !wep )
+			break;
 
-			wep.Get("attributes", attr, sizeof(attr));
-			int new_weapon = player.SpawnWeapon(name, index, lvl, qual, attr);
-			SetEntPropEnt(player.index, Prop_Send, "m_hActiveWeapon", new_weapon);
-		}
-	}
+		if( !wep.GetInt("index", index) )
+			continue;
+		if( !wep.Get("name", name, sizeof(name)) )
+			continue;
+		if( !wep.GetInt("level", lvl) )
+			lvl = 39;
+		if( !wep.GetInt("quality", qual) )
+			qual = 5;
 
-	{
-		ConfigMap wearablecfg = boss_cfg.WearableSection;
-		if ( wearablecfg == null )	return;
-
-		int wearable_count = wearablecfg.Size;
-		char attr[64]; int index, lvl, qual;
-		for(int i; i<wearable_count; i++)	{
-			ConfigMap wearable = wearablecfg.GetIntSection(i);
-			if ( !wearable )
-				break;
-
-			if ( !wearable.GetInt("index", index) )
-				continue;
-			if ( !wearable.GetInt("level", lvl) )
-				lvl = 39;
-			if ( !wearable.GetInt("quality", qual) )
-				qual = 5;
-
-			wearable.Get("attributes", attr, sizeof(attr));
-			
-			int item = CreateEntityByName("tf_wearable");
-			if ( !IsValidEntity(item) )
-				continue;
-
-			SetEntProp(item, Prop_Send, "m_iItemDefinitionIndex", index);
-			SetEntProp(item, Prop_Send, "m_bInitialized", 1);
-			SetEntData(item, GetEntSendPropOffs(item, "m_iEntityQuality", true), qual);
-			SetEntData(item, GetEntSendPropOffs(item, "m_iEntityLevel", true), lvl);
-			SetEntProp(item, Prop_Send, "m_iEntityQuality", qual);
-			SetEntProp(item, Prop_Send, "m_iEntityLevel", lvl);
-
-			if ( attr[0] && FF2GameMode.GetPropAny("bTF2Attribs") )	{
-				char atts[32][32];
-				int count = ExplodeString(attr, "; ", atts, 32, 32);
-				if (count > 1)	{
-					for(int j; j<count; j+=2)	{
-						TF2Attrib_SetByDefIndex(item, StringToInt(atts[i]), StringToFloat(atts[i+1]));
-					}
-				}
-			}
-
-			DispatchSpawn(item);
-			TF2Util_EquipPlayerWearable(player.index, item);
-		}
+		wep.Get("attributes", attr, sizeof(attr));
+		int new_weapon = player.SpawnWeapon(name, index, lvl, qual, attr);
+		SetEntPropEnt(player.index, Prop_Send, "m_hActiveWeapon", new_weapon);
 	}
 }
 
@@ -751,7 +703,7 @@ Action OnRoundEndInfoFF2(const VSH2Player player, bool bossBool, char message[MA
 			FormatEx(
 				message,
 				sizeof(message),
-				"%s (%N) 有 %i (总量 %i) 生命值剩余",
+				"%s (%N) had %i (of %i) health left.",
 				boss_name,
 				cur_boss.index,
 				cur_boss.GetPropInt("iHealth"),
@@ -764,7 +716,7 @@ Action OnRoundEndInfoFF2(const VSH2Player player, bool bossBool, char message[MA
 		for( int j=MaxClients; j; --j ) {
 			if( IsClientInGame(j) && !(GetClientButtons(j) & IN_SCORE) ) {
 				ShowHudText(j, -1, "%s", message);
-				CPrintToChat(j, "{olive}[VSH 2] 回合结束{default} %s", message);
+				CPrintToChat(j, "{olive}[VSH 2] End of Round{default} %s", message);
 			}
 		}
 
@@ -941,7 +893,7 @@ void FinishQueueArray()
 		}
 	}
 
-	ff2_plugins.UnloadAllSubPlugins();
+	subplugins.UnloadAllSubPlugins();
 }
 
 Action OnPlayerHurtFF2(Event event, const char[] name, bool dontBroadcast)
@@ -984,7 +936,7 @@ Action OnPlayerHurtFF2(Event event, const char[] name, bool dontBroadcast)
 					case 1: {
 						char boss_name[MAX_BOSS_NAME_SIZE];
 						player.GetName(boss_name);
-						PrintToChatAll("%s 失去了一条生命！还剩下最后一条生命！", boss_name);
+						PrintToChatAll("%s lost a life! There is 1 more!", boss_name);
 						FF2SoundSection sec = identity.soundMap.RandomEntry("last_life");
 						if( sec )
 							sec.PlaySound(player.index, VSH2_VOICE_LOSE);
@@ -992,7 +944,7 @@ Action OnPlayerHurtFF2(Event event, const char[] name, bool dontBroadcast)
 					default: {
 						char boss_name[MAX_BOSS_NAME_SIZE];
 						player.GetName(boss_name);
-						PrintToChatAll("%s 失去了一条生命！还剩下 %i 条生命！", boss_name, new_lives);
+						PrintToChatAll("%s lost a life! There are %i more!", boss_name, new_lives);
 					}
 				}
 			}
@@ -1007,6 +959,7 @@ Action OnPlayerHurtFF2(Event event, const char[] name, bool dontBroadcast)
 		player.flRAGE += rage * 100.0 / player.flRageDamage;
 	else
 		player.GiveRage(RoundToCeil(rage));
+	
 	return Plugin_Continue;
 }
 
@@ -1029,7 +982,7 @@ void OnVariablesResetFF2(const VSH2Player vsh2player)
 	player.bNoWeighdown = false;
 	player.bHideHUD = false;
 	player.flRageRatio = 1.0;
-	player.flRageDamage = 2500.0;
+	player.flRageDamage = 0.0;
 
 	player.SetPropAny("bNotifySMAC_CVars", false);
 	player.SetPropAny("bSupressRAGE", false);
