@@ -1126,7 +1126,7 @@ public Action OnStomp(int attacker, int victim, float& damageMultiplier, float& 
 public Action cdVoiceMenu(int client, const char[] command, int argc) {
 	if( !g_vsh2.m_hCvars.Enabled.BoolValue ) {
 		return Plugin_Continue;
-	} else if( argc < 2 || !IsPlayerAlive(client) ) {
+	} else if( !IsClientInGame(client) || argc < 2 || !IsPlayerAlive(client) ) {
 		return Plugin_Handled;
 	}
 	char szCmd1[8]; GetCmdArg(1, szCmd1, sizeof(szCmd1));
