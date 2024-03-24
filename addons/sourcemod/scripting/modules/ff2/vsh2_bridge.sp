@@ -440,15 +440,16 @@ void OnBossWeighDownFF2(const VSH2Player vsh2player)
 	identity.soundMap.PlayAbilitySound(vsh2player, identity.hCfg.GetSection("info.Weighdown"), CT_WEIGHDOWN);
 }
 
-void OnBossModelTimerFF2(const VSH2Player player)
+void OnBossModelTimerFF2(const VSH2Player vsh2player)
 {
 	FF2Identity identity;
-	if( !ff2_cfgmgr.FindIdentity(ToFF2Player(player).iBossType, identity) )
+	if( !ff2_cfgmgr.FindIdentity(ToFF2Player(vsh2player).iBossType, identity) )
 		return;
 
-	int client = player.index;
+	int client = vsh2player.index;
 	char model[PLATFORM_MAX_PATH];
-	if( identity.hCfg.Get("character.info.model", model, sizeof(model)) ) {
+	FF2Player player = ToFF2Player(vsh2player);
+	if( !player.bNoModelTimer && identity.hCfg.Get("character.info.model", model, sizeof(model)) ) {
 		SetVariantString(model);
 		AcceptEntityInput(client, "SetCustomModel");
 		SetEntProp(client, Prop_Send, "m_bUseClassAnimations", 1);
@@ -1030,6 +1031,7 @@ void OnVariablesResetFF2(const VSH2Player vsh2player)
 	player.bHideHUD = false;
 	player.flRageRatio = 1.0;
 	player.flRageDamage = 2500.0;
+	player.bNoModelTimer = false;
 
 	player.SetPropAny("bNotifySMAC_CVars", false);
 	player.SetPropAny("bSupressRAGE", false);

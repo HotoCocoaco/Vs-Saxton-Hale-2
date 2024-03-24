@@ -102,6 +102,15 @@ methodmap FF2Player < VSH2Player {
 		}
 	}
 
+	property bool bNoModelTimer {
+		public get() {
+			return this.GetPropAny("bNoModelTimer");
+		}
+		public set(bool state) {
+			this.SetPropAny("bNoModelTimer", state);
+		}
+	}
+
 	public void PlayBGM(const char[] music) {
 		this.PlayMusic(ff2.m_cvars.m_flmusicvol.FloatValue, music);
 	}
