@@ -495,47 +495,48 @@ void OnBossEquippedFF2(const VSH2Player player)
 
 	{
 		ConfigMap wearablecfg = boss_cfg.WearableSection;
-		if ( wearablecfg == null )	return;
+		if (wearablecfg)
+		{
+			int wearable_count = wearablecfg.Size;
+			char attr[64]; int index, lvl, qual;
+			for(int i; i<wearable_count; i++)	{
+				ConfigMap wearable = wearablecfg.GetIntSection(i);
+				if ( !wearable )
+					break;
 
-		int wearable_count = wearablecfg.Size;
-		char attr[64]; int index, lvl, qual;
-		for(int i; i<wearable_count; i++)	{
-			ConfigMap wearable = wearablecfg.GetIntSection(i);
-			if ( !wearable )
-				break;
+				if ( !wearable.GetInt("index", index) )
+					continue;
+				if ( !wearable.GetInt("level", lvl) )
+					lvl = 39;
+				if ( !wearable.GetInt("quality", qual) )
+					qual = 5;
 
-			if ( !wearable.GetInt("index", index) )
-				continue;
-			if ( !wearable.GetInt("level", lvl) )
-				lvl = 39;
-			if ( !wearable.GetInt("quality", qual) )
-				qual = 5;
+				wearable.Get("attributes", attr, sizeof(attr));
+				
+				int item = CreateEntityByName("tf_wearable");
+				if ( !IsValidEntity(item) )
+					continue;
 
-			wearable.Get("attributes", attr, sizeof(attr));
-			
-			int item = CreateEntityByName("tf_wearable");
-			if ( !IsValidEntity(item) )
-				continue;
+				SetEntProp(item, Prop_Send, "m_iItemDefinitionIndex", index);
+				SetEntProp(item, Prop_Send, "m_bInitialized", 1);
+				SetEntData(item, GetEntSendPropOffs(item, "m_iEntityQuality", true), qual);
+				SetEntData(item, GetEntSendPropOffs(item, "m_iEntityLevel", true), lvl);
+				SetEntProp(item, Prop_Send, "m_iEntityQuality", qual);
+				SetEntProp(item, Prop_Send, "m_iEntityLevel", lvl);
 
-			SetEntProp(item, Prop_Send, "m_iItemDefinitionIndex", index);
-			SetEntProp(item, Prop_Send, "m_bInitialized", 1);
-			SetEntData(item, GetEntSendPropOffs(item, "m_iEntityQuality", true), qual);
-			SetEntData(item, GetEntSendPropOffs(item, "m_iEntityLevel", true), lvl);
-			SetEntProp(item, Prop_Send, "m_iEntityQuality", qual);
-			SetEntProp(item, Prop_Send, "m_iEntityLevel", lvl);
-
-			if ( attr[0] && FF2GameMode.GetPropAny("bTF2Attribs") )	{
-				char atts[32][32];
-				int count = ExplodeString(attr, "; ", atts, 32, 32);
-				if (count > 1)	{
-					for(int j; j<count; j+=2)	{
-						TF2Attrib_SetByDefIndex(item, StringToInt(atts[i]), StringToFloat(atts[i+1]));
+				if ( attr[0] && FF2GameMode.GetPropAny("bTF2Attribs") )	{
+					char atts[32][32];
+					int count = ExplodeString(attr, "; ", atts, 32, 32);
+					if (count > 1)	{
+						for(int j; j<count; j+=2)	{
+							TF2Attrib_SetByDefIndex(item, StringToInt(atts[i]), StringToFloat(atts[i+1]));
+						}
 					}
 				}
-			}
 
-			DispatchSpawn(item);
-			TF2Util_EquipPlayerWearable(player.index, item);
+				DispatchSpawn(item);
+				TF2Util_EquipPlayerWearable(player.index, item);
+			}
 		}
 	}
 }
