@@ -11,7 +11,7 @@
 #define REQUIRE_PLUGIN
 
 #undef REQUIRE_EXTENSIONS
-#tryinclude <steamtools>
+#tryinclude <SteamWorks>
 #define REQUIRE_EXTENSIONS
 
 #undef REQUIRE_PLUGIN
@@ -476,7 +476,7 @@ public void OnPluginStart() {
 	g_vsh2.m_hCvars.BootStompDamage = CreateConVar("vsh2_mantreads_stomp_dmg", "1024.0", "damage done from mantreads-style stomp, value given will work depending on the value of 'vsh2_mantreads_stomp_logic'.", FCVAR_NONE, true, 0.0, true, 999999.0);
 	g_vsh2.m_hCvars.CloakDrain = CreateConVar("vsh2_dispenser_cloak_drain_rate", "0.5", "how much cloak will be drained when a spy is using the invisiwatches near dispensers.", FCVAR_NONE, true, 0.0, true, 999999.0);
 	
-	g_vshgm.bSteam      = LibraryExists("SteamTools");
+	g_vshgm.bSteam      = LibraryExists("SteamWorks");
 	g_vshgm.bTF2Attribs = LibraryExists("tf2attributes");
 	
 	g_modsys.init();
@@ -631,7 +631,7 @@ public Action BlockSuicide(int client, const char[] command, int argc) {
 }
 
 public void OnLibraryAdded(const char[] name) {
-	if( !strcmp(name, "SteamTools", false) )
+	if( !strcmp(name, "SteamWorks", false) )
 		g_vshgm.bSteam = true;
 
 	if( !strcmp(name, "tf2attributes", false) )
@@ -644,7 +644,7 @@ public void OnLibraryAdded(const char[] name) {
 }
 
 public void OnLibraryRemoved(const char[] name) {
-	if( !strcmp(name, "SteamTools", false) )
+	if( !strcmp(name, "SteamWorks", false) )
 		g_vshgm.bSteam = false;
 
 	if( !strcmp(name, "tf2attributes", false) )
@@ -717,11 +717,11 @@ public void OnConfigsExecuted() {
 		
 		g_vshgm.CheckDoors();
 		g_vshgm.CheckTeleToSpawn();
-#if defined _steamtools_included
+#if defined _SteamWorks_Included
 		if( g_vshgm.bSteam ) {
 			char gameDesc[128];
 			Format(gameDesc, sizeof(gameDesc), "%t (v%s)", "server_descriptor", PLUGIN_VERSION);
-			Steam_SetGameDescription(gameDesc);
+			SteamWorks_SetGameDescription(gameDesc);
 		}
 #endif
 	}
