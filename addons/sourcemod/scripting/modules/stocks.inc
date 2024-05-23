@@ -1,3 +1,5 @@
+#include <tf2utils>
+
 stock int GetHealingTarget(const int client)
 {
 	int medigun = GetPlayerWeaponSlot(client, TFWeaponSlot_Secondary);
@@ -755,7 +757,7 @@ stock int FindPlayerBack(int client, int[] indices, int len)
 	int numwearables = TF2_GetNumWearables(client);
 	for( int i=numwearables-1; i>=0; --i ) {
 		int wearable = TF2_GetWearable(client, i);
-		if( wearable && !GetEntProp(wearable, Prop_Send, "m_bDisguiseWearable") ) {
+		if( wearable > 0 && IsValidEntity(wearable) && !GetEntProp(wearable, Prop_Send, "m_bDisguiseWearable") ) {
 			int idx = GetItemIndex(wearable);
 			for( int u; u<len; u++ ) {
 				if( idx==indices[u] ) {
@@ -1221,17 +1223,22 @@ stock int TF2_GetNumWearables(int client)
 {
 	/// 3552 linux
 	/// 3532 windows
-	int offset = FindSendPropInfo("CTFPlayer", "m_flMaxspeed") - 20 + 12;
-	return GetEntData(client, offset);
+	//int offset = FindSendPropInfo("CTFPlayer", "m_flMaxspeed") - 20 + 12;
+	//return GetEntData(client, offset);
+	/* 2024/5/22 warpper to tf2utils */
+	return TF2Util_GetPlayerWearableCount(client);
 }
 
 stock int TF2_GetWearable(int client, int wearableidx)
 {
 	/// 3540 linux
 	/// 3520 windows
-	int offset = FindSendPropInfo("CTFPlayer", "m_flMaxspeed") - 20;
-	Address m_hMyWearables = view_as< Address >(LoadFromAddress(GetEntityAddress(client) + view_as< Address >(offset), NumberType_Int32));
-	return LoadFromAddress(m_hMyWearables + view_as< Address >(4 * wearableidx), NumberType_Int32) & 0xFFF;
+	// int offset = FindSendPropInfo("CTFPlayer", "m_flMaxspeed") - 20;
+	// Address m_hMyWearables = view_as< Address >(LoadFromAddress(GetEntityAddress(client) + view_as< Address >(offset), NumberType_Int32));
+	// return LoadFromAddress(m_hMyWearables + view_as< Address >(4 * wearableidx), NumberType_Int32) & 0xFFF;
+	/* 2024/5/22 warpper to tf2utils */
+	// int count = GetEntData(client, view_as<int>(offs_CTFPlayer_hMyWearables) + 0x0C);
+	return TF2Util_GetPlayerWearable(client, wearableidx);
 }
 
 public Action RemoveEnt(Handle timer, any entid)
