@@ -186,6 +186,25 @@ methodmap BaseFighter {
 		}
 	}
 
+	property int iSpecial {
+		public get() {
+			int i; g_vsh2.m_hPlayerFields[this.index].GetValue("iSpecial", i);
+			return i;
+		}
+		public set( const int val ) {
+			g_vsh2.m_hPlayerFields[this.index].SetValue("iSpecial", val);
+		}
+	}
+	property int iSpecial2 {
+		public get() {
+			int i; g_vsh2.m_hPlayerFields[this.index].GetValue("iSpecial2", i);
+			return i;
+		}
+		public set( const int val ) {
+			g_vsh2.m_hPlayerFields[this.index].SetValue("iSpecial2", val);
+		}
+	}
+
 	/** please use userid on this; convert to client index if you want but userid is safer */
 	property int iUberTarget {
 		public get() {
@@ -286,6 +305,24 @@ methodmap BaseFighter {
 		}
 		public set( const float val ) {
 			g_vsh2.m_hPlayerFields[this.index].SetValue("flLastShot", val);
+		}
+	}
+	property float flSpecial {
+		public get() {
+			float i; g_vsh2.m_hPlayerFields[this.index].GetValue("flSpecial", i);
+			return i;
+		}
+		public set( const float val ) {
+			g_vsh2.m_hPlayerFields[this.index].SetValue("flSpecial", val);
+		}
+	}
+	property float flSpecial2 {
+		public get() {
+			float i; g_vsh2.m_hPlayerFields[this.index].GetValue("flSpecial2", i);
+			return i;
+		}
+		public set( const float val ) {
+			g_vsh2.m_hPlayerFields[this.index].SetValue("flSpecial2", val);
 		}
 	}
 	property float flMusicTime {

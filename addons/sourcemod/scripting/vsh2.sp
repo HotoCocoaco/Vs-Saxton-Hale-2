@@ -678,6 +678,10 @@ public void OnClientPutInServer(int client)
 	boss.flGlowtime = 0.0;
 	boss.flLastHit = 0.0;
 	boss.flLastShot = 0.0;
+	boss.flSpecial = 0.0;
+	boss.flSpecial2 = 0.0;
+	boss.iSpecial	= 0;
+	boss.iSpecial2	= 0;
 	boss.iShieldDmg = 0;
 	boss.bOverrideMaxHealth = false;
 

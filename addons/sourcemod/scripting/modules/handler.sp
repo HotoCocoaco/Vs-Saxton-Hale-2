@@ -1425,6 +1425,10 @@ public void ManageResetVariables(const BaseBoss base)
 	base.iSongPick     = -1;
 	SetEntityRenderColor(base.index, 255, 255, 255, 255);
 	base.flLastShot    = 0.0;
+	base.flSpecial     = 0.0;
+	base.flSpecial2    = 0.0;
+	base.iSpecial      = 0;
+	base.iSpecial2     = 0;
 	base.flLastHit     = 0.0;
 	base.iState        = -1;
 	base.iHits         = 0;
