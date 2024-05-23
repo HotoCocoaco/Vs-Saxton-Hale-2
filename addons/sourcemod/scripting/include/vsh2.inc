@@ -172,6 +172,7 @@ methodmap VSH2Player {
 	 * float flGlowtime
 	 * float flLastHit
 	 * float flLastShot
+	 * bool bOverrideMaxHealth
 
 	** ALL PROPERTIES AFTER THIS COMMENT ONLY ACCOUNT FOR BOSSES BUT CAN STILL APPLY ON NON-BOSSES AND MINIONS **
 	 * int iHealth

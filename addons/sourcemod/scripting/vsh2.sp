@@ -679,6 +679,7 @@ public void OnClientPutInServer(int client)
 	boss.flLastHit = 0.0;
 	boss.flLastShot = 0.0;
 	boss.iShieldDmg = 0;
+	boss.bOverrideMaxHealth = false;
 
 	/// BaseBoss properties
 	boss.iMaxHealth = 0;
@@ -942,7 +943,7 @@ public Action GetMaxHealth(int entity, int &maxhealth)
 		return Plugin_Continue;
 
 	BaseBoss player = BaseBoss(entity);
-	if( player.bIsBoss && player.iMaxHealth ) {
+	if( (player.bIsBoss || player.bOverrideMaxHealth) && player.iMaxHealth ) {
 		maxhealth = player.iMaxHealth;
 		return Plugin_Changed;
 	}

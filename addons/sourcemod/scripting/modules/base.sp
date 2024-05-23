@@ -802,6 +802,16 @@ methodmap BaseBoss < BaseFighter {
 		}
 	}
 
+	property bool bOverrideMaxHealth {
+		public get() {
+			bool i; g_vsh2.m_hPlayerFields[this.index].GetValue("bOverrideMaxHealth", i);
+			return i;
+		}
+		public set( const bool val ) {
+			g_vsh2.m_hPlayerFields[this.index].SetValue("bOverrideMaxHealth", val);
+		}
+	}
+
 	public void ConvertToBoss() {
 		this.flRAGE = 0.0;
 		SetPawnTimer(_MakePlayerBoss, 0.1, this.userid);

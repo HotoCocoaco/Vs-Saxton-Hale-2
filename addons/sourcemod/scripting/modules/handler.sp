@@ -1434,6 +1434,7 @@ public void ManageResetVariables(const BaseBoss base)
 	base.iClimbs       = 0;
 	base.bSuperCharge  = false;
 	base.bInJump       = false; /// PATCH: rocket jumping at end of round then respawning keeps this on true with perma-crit market gardener.
+	base.bOverrideMaxHealth	= false;
 }
 public void ManageEntityCreated(const int entity, const char[] classname)
 {
