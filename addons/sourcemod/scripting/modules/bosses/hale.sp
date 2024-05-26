@@ -165,6 +165,7 @@ methodmap CHale < BaseBoss {
 	}
 	public void RageAbility() {
 		TF2_AddCondition(this.index, view_as< TFCond >(42), 4.0);
+		TF2_AddCondition(this.index, view_as< TFCond >(33), 10.0);
 		if( !GetEntProp(this.index, Prop_Send, "m_bIsReadyToHighFive")
 			&& !IsValidEntity(GetEntPropEnt(this.index, Prop_Send, "m_hHighFivePartner")) )
 		{
