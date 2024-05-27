@@ -275,6 +275,24 @@ methodmap BaseFighter {
 			g_vsh2.m_hCookies[MusicOpt].Set(this.index, musical);
 		}
 	}
+	property bool bNoHelpPanel {
+		public get() {
+			if( !AreClientCookiesCached(this.index) ) {
+				return false;
+			}
+			char needpanel[6];
+			g_vsh2.m_hCookies[PanelOpt].Get(this.index, needpanel, sizeof(needpanel));
+			return( StringToInt(needpanel) == 1 );
+		}
+		public set( const bool val ) {
+			if( !AreClientCookiesCached(this.index) ) {
+				return;
+			}
+			char needpanel[6];
+			IntToString(( val ) ? 1 : 0, needpanel, sizeof(needpanel));
+			g_vsh2.m_hCookies[PanelOpt].Set(this.index, needpanel);
+		}
+	}
 
 	property float flGlowtime {
 		public get() {
@@ -582,7 +600,7 @@ methodmap BaseFighter {
 	}
 
 	public void HelpPanelClass() {
-		if( IsVoteInProgress() )
+		if( IsVoteInProgress() || this.bNoHelpPanel )
 			return;
 
 		static char class_help[][] = {

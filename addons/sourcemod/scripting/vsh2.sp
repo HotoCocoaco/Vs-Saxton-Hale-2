@@ -141,7 +141,7 @@ enum struct VSH2Cvars {
 }
 
 enum /** Cookies */ {
-	Points, BossOpt, MusicOpt, MaxVSH2Cookies
+	Points, BossOpt, MusicOpt, PanelOpt, MaxVSH2Cookies
 };
 
 enum struct BossModule {
@@ -223,7 +223,7 @@ public void OnPluginStart()
 	RegConsoleCmd("sm_sethale",    SetBossMenu, "Sets your boss.");
 	RegConsoleCmd("sm_ff2boss",    SetBossMenu, "Sets your boss.");
 	RegConsoleCmd("sm_haleboss",   SetBossMenu, "Sets your boss.");
-	RegConsoleCmd("sm_boss",   SetBossMenu, "Sets your boss.");
+	RegConsoleCmd("sm_boss",       SetBossMenu, "Sets your boss.");
 
 	RegConsoleCmd("sm_halemusic",  MusicTogglePanelCmd);
 	RegConsoleCmd("sm_hale_music", MusicTogglePanelCmd);
@@ -240,11 +240,12 @@ public void OnPluginStart()
 	RegConsoleCmd("sm_ff2_help",   HelpPanelCmd);
 
 	RegConsoleCmd("sm_hale",       HelpPanelCmd);
-	RegConsoleCmd("sm_boss",       HelpPanelCmd);
 	RegConsoleCmd("sm_ff2",        HelpPanelCmd);
 
 	RegConsoleCmd("sm_resetq",     ResetQueue);
 	RegConsoleCmd("sm_resetqueue", ResetQueue);
+
+	RegConsoleCmd("sm_nohelp",     ToggleHelpPannelSetting);
 
 	RegAdminCmd("sm_vsh2_reloadcfg", CmdReloadCFG, ADMFLAG_GENERIC);
 
@@ -427,6 +428,7 @@ public void OnPluginStart()
 	g_vsh2.m_hCookies[Points]   = new Cookie("vsh2_queuepoints", "Amount of VSH2 Queue points a player has.", CookieAccess_Protected);
 	g_vsh2.m_hCookies[BossOpt]  = new Cookie("vsh2_presetbosses", "Preset bosses for VSH2 players.", CookieAccess_Protected);
 	g_vsh2.m_hCookies[MusicOpt] = new Cookie("vsh2_music_settings", "HaleMusic setting.", CookieAccess_Public);
+	g_vsh2.m_hCookies[PanelOpt]	= new Cookie("vsh2_panel_settings", "Help Panel setting.", CookieAccess_Public);
 
 	for( int i=MaxClients; i; --i ) {
 		if( !IsClientInGame(i) ) {
