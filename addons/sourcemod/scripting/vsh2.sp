@@ -926,7 +926,7 @@ public Action OnTakeDamage(int victim, int& attacker, int& inflictor, float& dam
 			Action act = Call_OnPlayerTakeFallDamage(boss_victim, attacker, inflictor, damage, damagetype, weapon, damageForce, damagePosition, damagecustom);
 
 			int item = GetPlayerWeaponSlot(victim, (boss_victim.iTFClass == TFClass_DemoMan ? TFWeaponSlot_Primary : TFWeaponSlot_Secondary));
-			if( item <= 0 || !IsValidEntity(item) || (boss_victim.iTFClass==TFClass_Spy && TF2_IsPlayerInCondition(victim, TFCond_Cloaked)) ) {
+			if( item <= 0 || !IsValidEntity(item) || (boss_victim.iTFClass==TFClass_Spy && TF2_IsPlayerInCondition(victim, TFCond_Cloaked)) || (boss_victim.iTFClass != TFClass_Sniper) ) {
 				if( act != Plugin_Changed ) {
 					damage /= 10;
 				}
