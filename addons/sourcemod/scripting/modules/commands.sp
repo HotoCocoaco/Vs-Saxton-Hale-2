@@ -49,21 +49,8 @@ public Action ToggleHelpPannelSetting(int client, int args)
 		return Plugin_Handled;
 	}
 
-	if (args <= 1) {
-		CReplyToCommand(client, "{olive}[VSH 2]{default} Usage: /nohelp <1/0>");
-		return Plugin_Handled;
-	}
-
-	char arg1[4]; GetCmdArg(1, arg1, sizeof(arg1));
-	int value = StringToInt(arg1);
-	if (value < 0 || value > 1)
-	{
-		CReplyToCommand(client, "{olive}[VSH 2]{default} Usage: /nohelp <1/0>");
-		return Plugin_Handled;
-	}
-	
-	BaseBoss(client).bNoHelpPanel = value ? true : false;
-	CPrintToChat(client, "{olive}[VSH 2]{default} 已将兵种帮助菜单设置为%s。", value ? "关闭" : "开启");
+	BaseBoss(client).bNoHelpPanel = BaseBoss(client).bNoHelpPanel ? false : true;
+	CPrintToChat(client, "{olive}[VSH 2]{default} 已将兵种帮助菜单设置为%s。", BaseBoss(client).bNoHelpPanel ? "关闭" : "开启");
 	return Plugin_Handled;
 }
 
