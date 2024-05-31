@@ -7,7 +7,8 @@ stock int GetHealingTarget(const int client)
 		return -1;
 	} else if( HasEntProp(medigun, Prop_Send, "m_bHealing")
 			&& GetEntProp(medigun, Prop_Send, "m_bHealing") ) {
-		return GetEntPropEnt(medigun, Prop_Send, "m_hHealingTarget");
+		int target = GetEntPropEnt(medigun, Prop_Send, "m_hHealingTarget")
+		return target > MaxClients ? -1 : target;
 	}
 	return -1;
 }

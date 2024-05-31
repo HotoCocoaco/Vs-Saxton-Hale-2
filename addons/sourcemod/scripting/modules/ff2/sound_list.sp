@@ -211,6 +211,10 @@ methodmap FF2SoundMap < StringMap  {
 		if( snd_list && RandomAbilitySound(snd_list, type, sec) ) {
 			sec.GetPath(buffer, sizeof(buffer));
 			sec.PlaySound(player.index, VSH2_VOICE_ABILITY);
+			if (type & CT_RAGE)
+			{
+				sec.PlaySound(player.index, VSH2_VOICE_RAGE);
+			}
 		}
 	}
 
