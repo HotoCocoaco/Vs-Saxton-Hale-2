@@ -389,6 +389,8 @@ public Action RoundEnd(Event event, const char[] name, bool dontBroadcast)
 	if( teamroundtimer && IsValidEntity(teamroundtimer) )
 		AcceptEntityInput(teamroundtimer, "Kill");
 	*/
+
+	delete captimer;
 	return Plugin_Continue;
 }
 

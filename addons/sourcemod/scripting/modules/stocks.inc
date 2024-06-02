@@ -942,6 +942,7 @@ stock int GetClip(const int client, const int slot)
 	return 0;
 }
 
+Handle captimer;
 stock void _SetCapOwner(const int iCapTeam, const bool open_doors, float flEnableTime = 30.0)
 {
 	int i = -1;
@@ -955,10 +956,20 @@ stock void _SetCapOwner(const int iCapTeam, const bool open_doors, float flEnabl
 			AcceptEntityInput(i, "SetOwner", -1, cap_master);
 			SetVariantInt(1);
 			AcceptEntityInput(i, "SetLocked");
-			SetPawnTimer(EnableCap, flEnableTime, open_doors);
+			delete captimer;
+			captimer = CreateTimer(flEnableTime, EnableCapTimer, open_doors);
+			// SetPawnTimer(EnableCap, flEnableTime, open_doors);
 		}
 	}
 }
+
+Action EnableCapTimer(Handle hTimer, bool open_doors)
+{
+	EnableCap(open_doors);
+	captimer = null;
+	return Plugin_Stop;
+}
+
 stock bool StrStarts(const char[] szStr, const char[] szSubStr, bool bCaseSensitive = true)
 {
 	return !StrContains(szStr, szSubStr, bCaseSensitive);
