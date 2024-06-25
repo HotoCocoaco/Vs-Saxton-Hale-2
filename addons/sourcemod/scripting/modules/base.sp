@@ -979,7 +979,7 @@ methodmap BaseBoss < BaseFighter {
 				if (weapon != -1) {
 					char classname[64];
 					GetEntityClassname(weapon, classname, sizeof(classname));
-					if (StrContain(classname, "tf_weapon_spellbook") != -1) {
+					if (StrContains(classname, "tf_weapon_spellbook") != -1) {
 						// I want boss or anyone to keep the spellbook if they have one.
 						continue;
 					}
