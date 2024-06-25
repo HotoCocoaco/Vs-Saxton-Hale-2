@@ -973,7 +973,20 @@ methodmap BaseBoss < BaseFighter {
 			}
 		}
 		if( weps ) {
-			TF2_RemoveAllWeapons(client);
+			//TF2_RemoveAllWeapons(client);
+			for (ent = 0; ent <= 5; ent++) {
+				int weapon = GetPlayerWeaponSlot(client, ent);
+				if (weapon != -1) {
+					char classname[64];
+					GetEntityClassname(weapon, classname, sizeof(classname));
+					if (StrContain(classname, "tf_weapon_spellbook") != -1) {
+						// I want boss or anyone to keep the spellbook if they have one.
+						continue;
+					}
+				}
+				
+				TF2_RemoveWeaponSlot(client, ent);
+			}
 		}
 	}
 
