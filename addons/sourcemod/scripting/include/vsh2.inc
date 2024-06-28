@@ -159,6 +159,7 @@ methodmap VSH2Player {
 	/** AVAILABLE PROPERTIES
 	 * int iQueue
 	 * int iPresetType
+	 * int iKills
 	 * int iLives
 	 * int iState
 	 * int iDamage
