@@ -1,3 +1,5 @@
+#### Warning: this branch contains much modified stuff for my server only.
+
 ![VSH2 Logo by Nergal/Assyrianic](https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/efc8ece3-f4a3-4477-8ebb-cb9595fb9e58/ddiv9m4-cbc4d719-c2fd-4890-b62a-17be7f01210f.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2VmYzhlY2UzLWY0YTMtNDQ3Ny04ZWJiLWNiOTU5NWZiOWU1OFwvZGRpdjltNC1jYmM0ZDcxOS1jMmZkLTQ4OTAtYjYyYS0xN2JlN2YwMTIxMGYucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.JjuSnfGa4fwWanCRmVmvkaI5GV9u5PYReeJ9ll1AIBQ)
 
 #### Current STABLE Version: *2.0.5*
